@@ -8,7 +8,7 @@ import {
   Settings, 
   Menu, 
   X, 
-  Chart-bar,
+  BarChart3,
   Search,
   Filter
 } from 'lucide-react';
@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 const navigation = [
   { name: 'Registry', href: '/', icon: Database },
   { name: 'Add iQube', href: '/add', icon: Plus },
-  { name: 'Analytics', href: '/analytics', icon: Chart-bar },
+  { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
