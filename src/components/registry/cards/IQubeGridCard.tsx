@@ -69,8 +69,12 @@ export const IQubeGridCard = ({
             onDelete={onDelete}
             onAddToCart={onAddToCart}
           />
-          <span className="text-xs text-slate-400">
-            {new Date(iQube.transactionDate).toLocaleDateString()}
+          <span className="text-xs text-slate-400 flex-shrink-0 ml-2">
+            {new Date(iQube.transactionDate).toLocaleDateString('en-US', { 
+              month: 'numeric', 
+              day: 'numeric', 
+              year: '2-digit' 
+            })}
           </span>
         </div>
       </CardContent>
