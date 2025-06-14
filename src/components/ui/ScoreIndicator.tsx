@@ -2,7 +2,7 @@
 import { cn } from '@/lib/utils';
 
 interface ScoreIndicatorProps {
-  label: string;
+  label?: string;
   value: number;
   max?: number;
   size?: 'xs' | 'sm' | 'md' | 'lg';
@@ -28,7 +28,7 @@ const getColorByScore = (value: number, max: number = 10): keyof typeof colorCla
 };
 
 export const ScoreIndicator = ({ 
-  label, 
+  label = '', 
   value, 
   max = 10, 
   size = 'md',
@@ -55,7 +55,7 @@ export const ScoreIndicator = ({
 
   return (
     <div className="space-y-1">
-      {showLabel && (
+      {showLabel && label && (
         <div className="flex items-center justify-between">
           <span className={cn(
             "font-medium text-slate-700",
