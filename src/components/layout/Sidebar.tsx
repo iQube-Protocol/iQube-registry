@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
-  Database, 
+  Box, 
   Plus, 
   Settings, 
   Menu, 
@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 const navigation = [
-  { name: 'Registry', href: '/', icon: Database },
+  { name: 'Registry', href: '/', icon: Box },
   { name: 'Add iQube', href: '/add', icon: Plus },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/settings', icon: Settings },
@@ -36,7 +36,7 @@ export const Sidebar = () => {
           {!collapsed && (
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Database className="w-5 h-5 text-white" />
+                <Box className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 iQube
