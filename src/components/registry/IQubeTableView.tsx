@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -53,7 +52,6 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
               <th className="text-left p-4 font-medium text-slate-700">Biz Model</th>
               <th className="text-left p-4 font-medium text-slate-700">Price</th>
               <th className="text-left p-4 font-medium text-slate-700">To</th>
-              <th className="text-left p-4 font-medium text-slate-700">Per</th>
               <th className="text-left p-4 font-medium text-slate-700">Actions</th>
             </tr>
           </thead>
@@ -190,8 +188,9 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 text-slate-600 text-sm">per {iqube.priceTo.toLowerCase()}</td>
-                  <td className="p-4 text-slate-600 text-sm">{iqube.durationOfRights}</td>
+                  <td className="p-4 text-slate-600 text-sm">
+                    {iqube.priceTo.charAt(0).toUpperCase() + iqube.priceTo.slice(1).toLowerCase()}
+                  </td>
                   <td className="p-4">
                     <div className="flex items-center space-x-1">
                       <Button
