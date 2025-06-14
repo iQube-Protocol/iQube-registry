@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { IQube, IQubeFormData, AnalyticsData } from '@/types/iQube';
 
-const STORAGE_KEY = 'iqubes-registry';
+const STORAGE_KEY = 'iqubes-registry-v2';
 
 // Helper function to calculate composite scores
 const calculateCompositeScores = (iqube: Omit<IQube, 'trustScore' | 'reliabilityIndex'>): IQube => {
