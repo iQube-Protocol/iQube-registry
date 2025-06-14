@@ -140,7 +140,7 @@ export const Registry = () => {
 
       {/* Filters and Search */}
       <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="lg:col-span-2">
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
@@ -170,39 +170,45 @@ export const Registry = () => {
             </SelectContent>
           </Select>
 
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="name">Name</SelectItem>
-              <SelectItem value="creator">Creator</SelectItem>
-              <SelectItem value="price">Price</SelectItem>
-              <SelectItem value="risk">Risk Score</SelectItem>
-              <SelectItem value="date">Date</SelectItem>
-            </SelectContent>
-          </Select>
-
           <div className="flex items-center space-x-2">
-            <Button
-              variant={sortOrder === 'asc' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSortOrder('asc')}
-            >
-              ↑
-            </Button>
-            <Button
-              variant={sortOrder === 'desc' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSortOrder('desc')}
-            >
-              ↓
-            </Button>
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="flex-1">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">Name</SelectItem>
+                <SelectItem value="creator">Creator</SelectItem>
+                <SelectItem value="price">Price</SelectItem>
+                <SelectItem value="risk">Risk Score</SelectItem>
+                <SelectItem value="date">Date</SelectItem>
+              </SelectContent>
+            </Select>
+            
+            <div className="flex items-center space-x-1">
+              <Button
+                variant={sortOrder === 'asc' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSortOrder('asc')}
+                className="h-8 w-8 p-0"
+              >
+                ↑
+              </Button>
+              <Button
+                variant={sortOrder === 'desc' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSortOrder('desc')}
+                className="h-8 w-8 p-0"
+              >
+                ↓
+              </Button>
+            </div>
+            
             <div className="border-l border-slate-200 pl-2 ml-2 flex space-x-1">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('grid')}
+                className="h-8 w-8 p-0"
               >
                 <Grid className="w-4 h-4" />
               </Button>
@@ -210,6 +216,7 @@ export const Registry = () => {
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('list')}
+                className="h-8 w-8 p-0"
               >
                 <List className="w-4 h-4" />
               </Button>
@@ -217,6 +224,7 @@ export const Registry = () => {
                 variant={viewMode === 'table' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('table')}
+                className="h-8 w-8 p-0"
               >
                 <Table className="w-4 h-4" />
               </Button>
