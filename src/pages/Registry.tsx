@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -118,36 +119,36 @@ export const Registry = () => {
   }
 
   return (
-    <TooltipProvider>
-      <div className="flex flex-col h-full">
-        {/* Fixed Header and Filter Section */}
-        <div className="flex-none bg-slate-50 border-b border-slate-200">
-          <div className="p-8 pb-0">
-            <RegistryHeader />
-            <FilterSection
-              searchTerm={searchTerm}
-              selectedType={selectedType}
-              sortBy={sortBy}
-              sortOrder={sortOrder}
-              viewMode={viewMode}
-              onSearchChange={setSearchTerm}
-              onTypeChange={setSelectedType}
-              onSortByChange={setSortBy}
-              onSortOrderChange={setSortOrder}
-              onViewModeChange={setViewMode}
-            />
-            <div className="mb-4">
-              <p className="text-sm text-slate-600">
-                Showing {filteredAndSortedIQubes.length} of {iQubes.length} iQubes
-              </p>
-            </div>
+    <div className="flex flex-col h-full">
+      {/* Fixed Header and Filter Section */}
+      <div className="flex-none bg-slate-50 border-b border-slate-200">
+        <div className="p-8 pb-0">
+          <RegistryHeader />
+          <FilterSection
+            searchTerm={searchTerm}
+            selectedType={selectedType}
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            viewMode={viewMode}
+            onSearchChange={setSearchTerm}
+            onTypeChange={setSelectedType}
+            onSortByChange={setSortBy}
+            onSortOrderChange={setSortOrder}
+            onViewModeChange={setViewMode}
+          />
+          <div className="mb-4">
+            <p className="text-sm text-slate-600">
+              Showing {filteredAndSortedIQubes.length} of {iQubes.length} iQubes
+            </p>
           </div>
         </div>
+      </div>
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 min-h-0">
-          <ScrollArea className="h-full w-full">
-            <div className="p-8 pt-6">
+      {/* Scrollable Content Area */}
+      <div className="flex-1 min-h-0">
+        <ScrollArea className="h-full w-full">
+          <div className="p-8 pt-6">
+            <TooltipProvider>
               <IQubeGrid
                 iQubes={filteredAndSortedIQubes}
                 viewMode={viewMode}
@@ -156,23 +157,23 @@ export const Registry = () => {
                 onDelete={handleDelete}
                 onAddToCart={handleAddToCart}
               />
-            </div>
-          </ScrollArea>
-        </div>
-
-        <IQubeDetailModal
-          iQube={selectedIQube}
-          open={detailModalOpen}
-          onClose={() => {
-            setDetailModalOpen(false);
-            setSelectedIQube(null);
-          }}
-          onEdit={(iqube) => {
-            setDetailModalOpen(false);
-            handleEdit(iqube);
-          }}
-        />
+            </TooltipProvider>
+          </div>
+        </ScrollArea>
       </div>
-    </TooltipProvider>
+
+      <IQubeDetailModal
+        iQube={selectedIQube}
+        open={detailModalOpen}
+        onClose={() => {
+          setDetailModalOpen(false);
+          setSelectedIQube(null);
+        }}
+        onEdit={(iqube) => {
+          setDetailModalOpen(false);
+          handleEdit(iqube);
+        }}
+      />
+    </div>
   );
 };

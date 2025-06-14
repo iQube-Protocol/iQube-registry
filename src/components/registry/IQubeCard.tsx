@@ -50,8 +50,10 @@ export const IQubeCard = ({
   viewMode = 'grid'
 }: IQubeCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
+
   if (viewMode === 'list') {
-    return <div className={cn("bg-white rounded-lg border border-slate-200 hover:shadow-md transition-shadow duration-200 border-l-4", typeAccentColors[iQube.iQubeType])}>
+    return (
+      <div className={cn("bg-white rounded-lg border border-slate-200 hover:shadow-md transition-shadow duration-200 border-l-4", typeAccentColors[iQube.iQubeType])}>
         <div className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex-1 grid grid-cols-12 gap-4 items-center">
@@ -114,24 +116,60 @@ export const IQubeCard = ({
             </div>
             
             <div className="flex items-center space-x-1 ml-4">
-              <Button variant="ghost" size="sm" onClick={() => onView(iQube)} className="text-slate-600 hover:text-blue-600">
-                <Eye className="w-4 h-4" />
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => onEdit(iQube)} className="text-slate-600 hover:text-green-600">
-                <Edit className="w-4 h-4" />
-              </Button>
-              {onAddToCart && <Button variant="ghost" size="sm" onClick={() => onAddToCart(iQube)} className="text-slate-600 hover:text-purple-600">
-                  <ShoppingCart className="w-4 h-4" />
-                </Button>}
-              <Button variant="ghost" size="sm" onClick={() => onDelete(iQube.id)} className="text-slate-600 hover:text-red-600">
-                <Trash className="w-4 h-4" />
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="sm" onClick={() => onView(iQube)} className="text-slate-600 hover:text-blue-600">
+                    <Eye className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View details</p>
+                </TooltipContent>
+              </Tooltip>
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="sm" onClick={() => onEdit(iQube)} className="text-slate-600 hover:text-green-600">
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Edit iQube</p>
+                </TooltipContent>
+              </Tooltip>
+              
+              {onAddToCart && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="sm" onClick={() => onAddToCart(iQube)} className="text-slate-600 hover:text-purple-600">
+                      <ShoppingCart className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Add to cart</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="sm" onClick={() => onDelete(iQube.id)} className="text-slate-600 hover:text-red-600">
+                    <Trash className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Delete iQube</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
         </div>
-      </div>;
+      </div>
+    );
   }
-  return <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
+
+  return (
+    <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
       <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-4">
@@ -191,23 +229,57 @@ export const IQubeCard = ({
         
         <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto">
           <div className="flex items-center space-x-1">
-            <Button variant="ghost" size="sm" onClick={() => onView(iQube)} className="text-slate-600 hover:text-blue-600">
-              <Eye className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="sm" onClick={() => onEdit(iQube)} className="text-slate-600 hover:text-green-600">
-              <Edit className="w-4 h-4" />
-            </Button>
-            {onAddToCart && <Button variant="ghost" size="sm" onClick={() => onAddToCart(iQube)} className="text-slate-600 hover:text-purple-600">
-                <ShoppingCart className="w-4 h-4" />
-              </Button>}
-            <Button variant="ghost" size="sm" onClick={() => onDelete(iQube.id)} className="text-slate-600 hover:text-red-600">
-              <Trash className="w-4 h-4" />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" onClick={() => onView(iQube)} className="text-slate-600 hover:text-blue-600">
+                  <Eye className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>View details</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" onClick={() => onEdit(iQube)} className="text-slate-600 hover:text-green-600">
+                  <Edit className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Edit iQube</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            {onAddToCart && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="sm" onClick={() => onAddToCart(iQube)} className="text-slate-600 hover:text-purple-600">
+                    <ShoppingCart className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Add to cart</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" onClick={() => onDelete(iQube.id)} className="text-slate-600 hover:text-red-600">
+                  <Trash className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Delete iQube</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
           <span className="text-xs text-slate-400">
             {new Date(iQube.transactionDate).toLocaleDateString()}
           </span>
         </div>
       </CardContent>
-    </Card>;
+    </Card>
+  );
 };

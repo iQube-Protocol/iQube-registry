@@ -1,3 +1,4 @@
+
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -209,40 +210,71 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                   </td>
                   <td className="p-4">
                     <div className="flex items-center space-x-1">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onView(iqube)}
-                        className="text-slate-600 hover:text-blue-600 h-8 w-8 p-0"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onEdit(iqube)}
-                        className="text-slate-600 hover:text-green-600 h-8 w-8 p-0"
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => onView(iqube)}
+                            className="text-slate-600 hover:text-blue-600 h-8 w-8 p-0"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>View details</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => onEdit(iqube)}
+                            className="text-slate-600 hover:text-green-600 h-8 w-8 p-0"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Edit iQube</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
                       {onAddToCart && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => onAddToCart(iqube)}
-                          className="text-slate-600 hover:text-purple-600 h-8 w-8 p-0"
-                        >
-                          <ShoppingCart className="w-4 h-4" />
-                        </Button>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onAddToCart(iqube)}
+                              className="text-slate-600 hover:text-purple-600 h-8 w-8 p-0"
+                            >
+                              <ShoppingCart className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Add to cart</p>
+                          </TooltipContent>
+                        </Tooltip>
                       )}
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onDelete(iqube.id)}
-                        className="text-slate-600 hover:text-red-600 h-8 w-8 p-0"
-                      >
-                        <Trash className="w-4 h-4" />
-                      </Button>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => onDelete(iqube.id)}
+                            className="text-slate-600 hover:text-red-600 h-8 w-8 p-0"
+                          >
+                            <Trash className="w-4 h-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Delete iQube</p>
+                        </TooltipContent>
+                      </Tooltip>
                     </div>
                   </td>
                 </tr>
