@@ -2,13 +2,10 @@
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
-import { IQubeCard } from '@/components/registry/IQubeCard';
 import { IQubeDetailModal } from '@/components/registry/IQubeDetailModal';
-import { IQubeTableView } from '@/components/registry/IQubeTableView';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Filter, Plus, Grid, List, Table } from 'lucide-react';
+import { RegistryHeader } from '@/components/registry/RegistryHeader';
+import { FilterSection } from '@/components/registry/FilterSection';
+import { IQubeGrid } from '@/components/registry/IQubeGrid';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
 
@@ -120,176 +117,36 @@ export const Registry = () => {
 
   return (
     <div className="p-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
-            iQube Registry
-          </h1>
-          <p className="text-slate-600 mt-1">
-            Manage and browse decentralized intelligence containers
-          </p>
-        </div>
-        <Button 
-          onClick={() => navigate('/add')}
-          className="bg-gradient-to-r from-blue-500 to-purple-600"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add iQube
-        </Button>
-      </div>
+      <RegistryHeader />
 
-      {/* Filters and Search */}
-      <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <div className="md:col-span-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
-              <Input
-                placeholder="Ask me what kind of iQube you're looking for..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 text-base"
-              />
-              <div className="absolute right-3 top-3 text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">
-                Agent
-              </div>
-            </div>
-          </div>
-          
-          <div className="md:col-span-2">
-            <Select value={selectedType} onValueChange={setSelectedType}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Types" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
-                <SelectItem value="DataQube">DataQube</SelectItem>
-                <SelectItem value="ContentQube">ContentQube</SelectItem>
-                <SelectItem value="ToolQube">ToolQube</SelectItem>
-                <SelectItem value="ModelQube">ModelQube</SelectItem>
-                <SelectItem value="AgentQube">AgentQube</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <FilterSection
+        searchTerm={searchTerm}
+        selectedType={selectedType}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        viewMode={viewMode}
+        onSearchChange={setSearchTerm}
+        onTypeChange={setSelectedType}
+        onSortByChange={setSortBy}
+        onSortOrderChange={setSortOrder}
+        onViewModeChange={setViewMode}
+      />
 
-          <div className="md:col-span-4 flex items-center space-x-2">
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name">Name</SelectItem>
-                <SelectItem value="creator">Creator</SelectItem>
-                <SelectItem value="price">Price</SelectItem>
-                <SelectItem value="risk">Risk Score</SelectItem>
-                <SelectItem value="date">Date</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <div className="flex items-center space-x-1">
-              <Button
-                variant={sortOrder === 'asc' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSortOrder('asc')}
-                className="h-8 w-7 p-0"
-              >
-                ↑
-              </Button>
-              <Button
-                variant={sortOrder === 'desc' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSortOrder('desc')}
-                className="h-8 w-7 p-0"
-              >
-                ↓
-              </Button>
-            </div>
-            
-            <div className="border-l border-slate-200 pl-2 ml-2 flex space-x-1">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="h-8 w-8 p-0"
-              >
-                <Grid className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="h-8 w-8 p-0"
-              >
-                <List className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'table' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('table')}
-                className="h-8 w-8 p-0"
-              >
-                <Table className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Results */}
       <div className="mb-4">
         <p className="text-sm text-slate-600">
           Showing {filteredAndSortedIQubes.length} of {iQubes.length} iQubes
         </p>
       </div>
 
-      {/* iQubes Display */}
-      {filteredAndSortedIQubes.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Search className="w-8 h-8 text-slate-400" />
-          </div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">No iQubes found</h3>
-          <p className="text-slate-600">Try adjusting your search or filters</p>
-        </div>
-      ) : viewMode === 'table' ? (
-        <IQubeTableView 
-          iQubes={filteredAndSortedIQubes}
-          onView={handleView}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      ) : viewMode === 'list' ? (
-        <div className="space-y-3">
-          {filteredAndSortedIQubes.map((iqube) => (
-            <IQubeCard
-              key={iqube.id}
-              iQube={iqube}
-              onView={handleView}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              onAddToCart={handleAddToCart}
-              viewMode="list"
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAndSortedIQubes.map((iqube) => (
-            <IQubeCard
-              key={iqube.id}
-              iQube={iqube}
-              onView={handleView}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              onAddToCart={handleAddToCart}
-              viewMode="grid"
-            />
-          ))}
-        </div>
-      )}
+      <IQubeGrid
+        iQubes={filteredAndSortedIQubes}
+        viewMode={viewMode}
+        onView={handleView}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onAddToCart={handleAddToCart}
+      />
 
-      {/* Detail Modal */}
       <IQubeDetailModal
         iQube={selectedIQube}
         open={detailModalOpen}
