@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Eye, Edit, Trash, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
-
 interface IQubeCardProps {
   iQube: IQube;
   onView: (iQube: IQube) => void;
@@ -15,7 +14,6 @@ interface IQubeCardProps {
   onAddToCart?: (iQube: IQube) => void;
   viewMode?: 'grid' | 'list';
 }
-
 const typeColors = {
   DataQube: 'bg-blue-100 text-blue-800',
   ContentQube: 'bg-green-100 text-green-800',
@@ -23,7 +21,6 @@ const typeColors = {
   ModelQube: 'bg-orange-100 text-orange-800',
   AgentQube: 'bg-red-100 text-red-800'
 };
-
 const typeAccentColors = {
   DataQube: 'border-l-blue-500',
   ContentQube: 'border-l-green-500',
@@ -31,7 +28,6 @@ const typeAccentColors = {
   ModelQube: 'border-l-orange-500',
   AgentQube: 'border-l-red-500'
 };
-
 const businessModelColors = {
   Buy: 'bg-emerald-100 text-emerald-800',
   Sell: 'bg-orange-100 text-orange-800',
@@ -42,16 +38,17 @@ const businessModelColors = {
   License: 'bg-pink-100 text-pink-800',
   Donate: 'bg-gray-100 text-gray-800'
 };
-
-export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMode = 'grid' }: IQubeCardProps) => {
+export const IQubeCard = ({
+  iQube,
+  onView,
+  onEdit,
+  onDelete,
+  onAddToCart,
+  viewMode = 'grid'
+}: IQubeCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
-
   if (viewMode === 'list') {
-    return (
-      <div className={cn(
-        "bg-white rounded-lg border border-slate-200 hover:shadow-md transition-shadow duration-200 border-l-4",
-        typeAccentColors[iQube.iQubeType]
-      )}>
+    return <div className={cn("bg-white rounded-lg border border-slate-200 hover:shadow-md transition-shadow duration-200 border-l-4", typeAccentColors[iQube.iQubeType])}>
         <div className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex-1 grid grid-cols-12 gap-4 items-center">
@@ -80,18 +77,8 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
               </div>
               
               <div className="col-span-2 grid grid-cols-1 gap-2">
-                <ScoreIndicator 
-                  label="Risk" 
-                  value={iQube.riskScore} 
-                  size="xs"
-                  scoreType="risk"
-                />
-                <ScoreIndicator 
-                  label="Accuracy" 
-                  value={iQube.accuracyScore} 
-                  size="xs"
-                  scoreType="accuracy"
-                />
+                <ScoreIndicator label="Risk" value={iQube.riskScore} size="xs" scoreType="risk" />
+                <ScoreIndicator label="Accuracy" value={iQube.accuracyScore} size="xs" scoreType="accuracy" />
               </div>
               
               <div className="col-span-1 text-right">
@@ -110,49 +97,24 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
             </div>
             
             <div className="flex items-center space-x-1 ml-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onView(iQube)}
-                className="text-slate-600 hover:text-blue-600"
-              >
+              <Button variant="ghost" size="sm" onClick={() => onView(iQube)} className="text-slate-600 hover:text-blue-600">
                 <Eye className="w-4 h-4" />
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onEdit(iQube)}
-                className="text-slate-600 hover:text-green-600"
-              >
+              <Button variant="ghost" size="sm" onClick={() => onEdit(iQube)} className="text-slate-600 hover:text-green-600">
                 <Edit className="w-4 h-4" />
               </Button>
-              {onAddToCart && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onAddToCart(iQube)}
-                  className="text-slate-600 hover:text-purple-600"
-                >
+              {onAddToCart && <Button variant="ghost" size="sm" onClick={() => onAddToCart(iQube)} className="text-slate-600 hover:text-purple-600">
                   <ShoppingCart className="w-4 h-4" />
-                </Button>
-              )}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onDelete(iQube.id)}
-                className="text-slate-600 hover:text-red-600"
-              >
+                </Button>}
+              <Button variant="ghost" size="sm" onClick={() => onDelete(iQube.id)} className="text-slate-600 hover:text-red-600">
                 <Trash className="w-4 h-4" />
               </Button>
             </div>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
+  return <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
       <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-4">
@@ -172,7 +134,7 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
             </div>
           </div>
           <div className="text-right flex-shrink-0 min-w-0">
-            <p className="text-lg font-bold text-slate-900 truncate">
+            <p className="font-bold text-slate-900 truncate text-base">
               {priceDisplay.primary}
             </p>
             <p className="text-xs text-slate-500 truncate">
@@ -191,60 +153,23 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
         </p>
         
         <div className="grid grid-cols-3 gap-3">
-          <ScoreIndicator 
-            label="Risk" 
-            value={iQube.riskScore} 
-            size="sm"
-            scoreType="risk"
-          />
-          <ScoreIndicator 
-            label="Accuracy" 
-            value={iQube.accuracyScore} 
-            size="sm"
-            scoreType="accuracy"
-          />
-          <ScoreIndicator 
-            label="Verifiability" 
-            value={iQube.verifiabilityScore} 
-            size="sm"
-            scoreType="verifiability"
-          />
+          <ScoreIndicator label="Risk" value={iQube.riskScore} size="sm" scoreType="risk" />
+          <ScoreIndicator label="Accuracy" value={iQube.accuracyScore} size="sm" scoreType="accuracy" />
+          <ScoreIndicator label="Verifiability" value={iQube.verifiabilityScore} size="sm" scoreType="verifiability" />
         </div>
         
         <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto">
           <div className="flex items-center space-x-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onView(iQube)}
-              className="text-slate-600 hover:text-blue-600"
-            >
+            <Button variant="ghost" size="sm" onClick={() => onView(iQube)} className="text-slate-600 hover:text-blue-600">
               <Eye className="w-4 h-4" />
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onEdit(iQube)}
-              className="text-slate-600 hover:text-green-600"
-            >
+            <Button variant="ghost" size="sm" onClick={() => onEdit(iQube)} className="text-slate-600 hover:text-green-600">
               <Edit className="w-4 h-4" />
             </Button>
-            {onAddToCart && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onAddToCart(iQube)}
-                className="text-slate-600 hover:text-purple-600"
-              >
+            {onAddToCart && <Button variant="ghost" size="sm" onClick={() => onAddToCart(iQube)} className="text-slate-600 hover:text-purple-600">
                 <ShoppingCart className="w-4 h-4" />
-              </Button>
-            )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onDelete(iQube.id)}
-              className="text-slate-600 hover:text-red-600"
-            >
+              </Button>}
+            <Button variant="ghost" size="sm" onClick={() => onDelete(iQube.id)} className="text-slate-600 hover:text-red-600">
               <Trash className="w-4 h-4" />
             </Button>
           </div>
@@ -253,6 +178,5 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
           </span>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
