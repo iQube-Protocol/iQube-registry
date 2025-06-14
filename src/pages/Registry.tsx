@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -140,8 +141,8 @@ export const Registry = () => {
 
       {/* Filters and Search */}
       <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div className="md:col-span-6">
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
               <Input
@@ -156,21 +157,23 @@ export const Registry = () => {
             </div>
           </div>
           
-          <Select value={selectedType} onValueChange={setSelectedType}>
-            <SelectTrigger>
-              <SelectValue placeholder="All Types" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="DataQube">DataQube</SelectItem>
-              <SelectItem value="ContentQube">ContentQube</SelectItem>
-              <SelectItem value="ToolQube">ToolQube</SelectItem>
-              <SelectItem value="ModelQube">ModelQube</SelectItem>
-              <SelectItem value="AgentQube">AgentQube</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="md:col-span-2">
+            <Select value={selectedType} onValueChange={setSelectedType}>
+              <SelectTrigger>
+                <SelectValue placeholder="All Types" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="DataQube">DataQube</SelectItem>
+                <SelectItem value="ContentQube">ContentQube</SelectItem>
+                <SelectItem value="ToolQube">ToolQube</SelectItem>
+                <SelectItem value="ModelQube">ModelQube</SelectItem>
+                <SelectItem value="AgentQube">AgentQube</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="md:col-span-4 flex items-center space-x-2">
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="flex-1">
                 <SelectValue placeholder="Sort by" />
@@ -189,7 +192,7 @@ export const Registry = () => {
                 variant={sortOrder === 'asc' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortOrder('asc')}
-                className="h-8 w-8 p-0"
+                className="h-8 w-7 p-0"
               >
                 ↑
               </Button>
@@ -197,7 +200,7 @@ export const Registry = () => {
                 variant={sortOrder === 'desc' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortOrder('desc')}
-                className="h-8 w-8 p-0"
+                className="h-8 w-7 p-0"
               >
                 ↓
               </Button>
