@@ -18,7 +18,7 @@ export const RegistryHeader = () => {
           </Button>
         </div>
       </div>
-      <Button onClick={() => navigate('/add')} className="bg-gradient-to-r from-blue-500 to-purple-600 hidden md:block">
+      <Button onClick={() => navigate('/add')} className="bg-gradient-to-r from-blue-500 to-purple-600 hidden md:block px-4">
         <Plus className="w-4 h-4 mr-2" />
         Add iQube
       </Button>
