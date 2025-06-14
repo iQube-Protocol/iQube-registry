@@ -137,7 +137,7 @@ export const IQubeCard = ({
             <p className="font-bold text-slate-900 truncate text-base">
               {priceDisplay.primary}
             </p>
-            <p className="text-xs text-slate-500 truncate">
+            <p className="text-slate-500 truncate text-base">
               {priceDisplay.secondary}
             </p>
             <p className="text-xs text-slate-400 truncate">
