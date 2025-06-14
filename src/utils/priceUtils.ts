@@ -1,7 +1,7 @@
 
 export const formatPrice = (priceInCents: number) => {
   const dollars = priceInCents / 100;
-  const satoshi = priceInCents * 2; // 2 satoshi per cent
+  const satoshi = priceInCents * 10; // 10 satoshi per cent
   
   if (priceInCents < 100) {
     return {
