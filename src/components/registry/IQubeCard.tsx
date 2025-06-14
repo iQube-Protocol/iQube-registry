@@ -1,9 +1,10 @@
+
 import { IQube } from '@/types/iQube';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { Button } from '@/components/ui/button';
-import { Eye, Edit, Trash } from 'lucide-react';
+import { Eye, Edit, Trash, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
 
@@ -12,6 +13,7 @@ interface IQubeCardProps {
   onView: (iQube: IQube) => void;
   onEdit: (iQube: IQube) => void;
   onDelete: (id: string) => void;
+  onAddToCart?: (iQube: IQube) => void;
   viewMode?: 'grid' | 'list';
 }
 
@@ -31,7 +33,7 @@ const typeAccentColors = {
   AigentQube: 'border-l-red-500'
 };
 
-export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }: IQubeCardProps) => {
+export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMode = 'grid' }: IQubeCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
 
   if (viewMode === 'list') {
@@ -44,7 +46,7 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
           <div className="flex items-center justify-between">
             <div className="flex-1 grid grid-cols-12 gap-4 items-center">
               <div className="col-span-3">
-                <h3 className="font-semibold text-slate-900 mb-1">
+                <h3 className="font-semibold text-slate-900 mb-1 line-clamp-2 min-h-[2.5rem]">
                   {iQube.iQubeName}
                 </h3>
                 <p className="text-sm text-slate-600">
@@ -58,12 +60,9 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
                 </p>
               </div>
               
-              <div className="col-span-2 flex flex-col space-y-1">
+              <div className="col-span-2">
                 <Badge className={cn('text-xs w-fit', typeColors[iQube.iQubeType])}>
                   {iQube.iQubeType}
-                </Badge>
-                <Badge variant="outline" className="text-xs w-fit">
-                  {iQube.ownerType}
                 </Badge>
               </div>
               
@@ -81,15 +80,17 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
               </div>
               
               <div className="col-span-1 text-right">
-                <p className="text-lg font-bold text-slate-900">
-                  {priceDisplay.primary}
-                </p>
-                <p className="text-xs text-slate-500">
-                  {priceDisplay.secondary}
-                </p>
-                <p className="text-xs text-slate-400">
-                  to {iQube.priceTo}
-                </p>
+                <div className="min-w-0">
+                  <p className="text-lg font-bold text-slate-900 truncate">
+                    {priceDisplay.primary}
+                  </p>
+                  <p className="text-xs text-slate-500 truncate">
+                    {priceDisplay.secondary}
+                  </p>
+                  <p className="text-xs text-slate-400 truncate">
+                    to {iQube.priceTo}
+                  </p>
+                </div>
               </div>
             </div>
             
@@ -110,6 +111,16 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
               >
                 <Edit className="w-4 h-4" />
               </Button>
+              {onAddToCart && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onAddToCart(iQube)}
+                  className="text-slate-600 hover:text-purple-600"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="sm"
@@ -126,41 +137,38 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
   }
 
   return (
-    <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200">
-      <CardHeader className="pb-3">
+    <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
+      <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <h3 className="font-semibold text-lg text-slate-900 mb-1">
+          <div className="flex-1 pr-4">
+            <h3 className="font-semibold text-lg text-slate-900 mb-1 line-clamp-2 min-h-[3.5rem]">
               {iQube.iQubeName}
             </h3>
-            <p className="text-sm text-slate-600 mb-2">
+            <p className="text-sm text-slate-600 mb-2 h-5">
               by {iQube.iQubeCreator}
             </p>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center">
               <Badge className={cn('text-xs', typeColors[iQube.iQubeType])}>
                 {iQube.iQubeType}
               </Badge>
-              <Badge variant="outline" className="text-xs">
-                {iQube.ownerType}
-              </Badge>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-lg font-bold text-slate-900">
+          <div className="text-right flex-shrink-0 min-w-0">
+            <p className="text-lg font-bold text-slate-900 truncate">
               {priceDisplay.primary}
             </p>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 truncate">
               {priceDisplay.secondary}
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 truncate">
               to {iQube.priceTo}
             </p>
           </div>
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-4">
-        <p className="text-sm text-slate-600 line-clamp-2">
+      <CardContent className="space-y-4 flex-1 flex flex-col">
+        <p className="text-sm text-slate-600 line-clamp-2 flex-1">
           {iQube.iQubeDescription}
         </p>
         
@@ -177,7 +185,7 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
           />
         </div>
         
-        <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+        <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto">
           <div className="flex items-center space-x-1">
             <Button
               variant="ghost"
@@ -195,6 +203,16 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
             >
               <Edit className="w-4 h-4" />
             </Button>
+            {onAddToCart && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onAddToCart(iQube)}
+                className="text-slate-600 hover:text-purple-600"
+              >
+                <ShoppingCart className="w-4 h-4" />
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="sm"

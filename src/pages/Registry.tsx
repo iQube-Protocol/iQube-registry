@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -17,7 +18,6 @@ export const Registry = () => {
   
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('all');
-  const [selectedOwnerType, setSelectedOwnerType] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'table'>('grid');
@@ -32,9 +32,8 @@ export const Registry = () => {
         iqube.iQubeDescription.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesType = selectedType === 'all' || iqube.iQubeType === selectedType;
-      const matchesOwnerType = selectedOwnerType === 'all' || iqube.ownerType === selectedOwnerType;
       
-      return matchesSearch && matchesType && matchesOwnerType;
+      return matchesSearch && matchesType;
     });
 
     // Sort
@@ -78,7 +77,7 @@ export const Registry = () => {
     });
 
     return filtered;
-  }, [iQubes, searchTerm, selectedType, selectedOwnerType, sortBy, sortOrder]);
+  }, [iQubes, searchTerm, selectedType, sortBy, sortOrder]);
 
   const handleView = (iqube: IQube) => {
     setSelectedIQube(iqube);
@@ -94,6 +93,13 @@ export const Registry = () => {
     toast({
       title: "iQube Deleted",
       description: "The iQube has been successfully removed from the registry.",
+    });
+  };
+
+  const handleAddToCart = (iqube: IQube) => {
+    toast({
+      title: "Added to Cart",
+      description: `${iqube.iQubeName} has been added to your cart.`,
     });
   };
 
@@ -135,7 +141,7 @@ export const Registry = () => {
 
       {/* Filters and Search */}
       <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="lg:col-span-2">
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
@@ -162,17 +168,6 @@ export const Registry = () => {
               <SelectItem value="ToolQube">ToolQube</SelectItem>
               <SelectItem value="ModelQube">ModelQube</SelectItem>
               <SelectItem value="AigentQube">AigentQube</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={selectedOwnerType} onValueChange={setSelectedOwnerType}>
-            <SelectTrigger>
-              <SelectValue placeholder="Owner Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Owners</SelectItem>
-              <SelectItem value="Individual">Individual</SelectItem>
-              <SelectItem value="Organisation">Organisation</SelectItem>
             </SelectContent>
           </Select>
 
@@ -263,6 +258,7 @@ export const Registry = () => {
               onView={handleView}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              onAddToCart={handleAddToCart}
               viewMode="list"
             />
           ))}
@@ -276,6 +272,7 @@ export const Registry = () => {
               onView={handleView}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              onAddToCart={handleAddToCart}
               viewMode="grid"
             />
           ))}

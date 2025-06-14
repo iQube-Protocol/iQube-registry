@@ -1,8 +1,9 @@
+
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
-import { Eye, Edit, Trash } from 'lucide-react';
+import { Eye, Edit, Trash, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
 
@@ -11,6 +12,7 @@ interface IQubeTableViewProps {
   onView: (iQube: IQube) => void;
   onEdit: (iQube: IQube) => void;
   onDelete: (id: string) => void;
+  onAddToCart?: (iQube: IQube) => void;
 }
 
 const typeColors = {
@@ -29,7 +31,7 @@ const typeRowColors = {
   AigentQube: 'hover:bg-red-50'
 };
 
-export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete }: IQubeTableViewProps) => {
+export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }: IQubeTableViewProps) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
       <div className="overflow-x-auto">
@@ -39,7 +41,6 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete }: IQubeTableV
               <th className="text-left p-4 font-medium text-slate-700">iQube Name</th>
               <th className="text-left p-4 font-medium text-slate-700">Creator</th>
               <th className="text-left p-4 font-medium text-slate-700">Description</th>
-              <th className="text-left p-4 font-medium text-slate-700">Owner Type</th>
               <th className="text-left p-4 font-medium text-slate-700">iQube Type</th>
               <th className="text-left p-4 font-medium text-slate-700">Owner ID</th>
               <th className="text-left p-4 font-medium text-slate-700">Date</th>
@@ -74,11 +75,6 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete }: IQubeTableV
                     <div className="text-slate-600 text-sm truncate" title={iqube.iQubeDescription}>
                       {iqube.iQubeDescription}
                     </div>
-                  </td>
-                  <td className="p-4">
-                    <Badge variant="outline" className="text-xs">
-                      {iqube.ownerType}
-                    </Badge>
                   </td>
                   <td className="p-4">
                     <Badge className={cn('text-xs', typeColors[iqube.iQubeType])}>
@@ -119,11 +115,11 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete }: IQubeTableV
                     </Badge>
                   </td>
                   <td className="p-4 font-medium text-slate-900">
-                    <div className="text-right">
-                      <div className="font-medium text-slate-900">
+                    <div className="text-right min-w-0">
+                      <div className="font-medium text-slate-900 truncate">
                         {priceDisplay.primary}
                       </div>
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-slate-500 truncate">
                         {priceDisplay.secondary}
                       </div>
                     </div>
@@ -148,11 +144,21 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete }: IQubeTableV
                       >
                         <Edit className="w-4 h-4" />
                       </Button>
+                      {onAddToCart && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => onAddToCart(iqube)}
+                          className="text-slate-600 hover:text-purple-600 h-8 w-8 p-0"
+                        >
+                          <ShoppingCart className="w-4 h-4" />
+                        </Button>
+                      )}
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => onDelete(iqube.id)}
-                        className="text-slate-600 hover:text-red-600 h-8 w-8 p-0"
+                        className="text-slash-600 hover:text-red-600 h-8 w-8 p-0"
                       >
                         <Trash className="w-4 h-4" />
                       </Button>
