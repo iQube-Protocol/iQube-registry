@@ -5,8 +5,9 @@ interface ScoreIndicatorProps {
   label: string;
   value: number;
   max?: number;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   showValue?: boolean;
+  showLabel?: boolean;
   color?: 'blue' | 'green' | 'yellow' | 'red' | 'purple';
 }
 
@@ -32,35 +33,46 @@ export const ScoreIndicator = ({
   max = 10, 
   size = 'md',
   showValue = true,
+  showLabel = true,
   color 
 }: ScoreIndicatorProps) => {
   const percentage = (value / max) * 100;
   const colorClass = color ? colorClasses[color] : colorClasses[getColorByScore(value, max)];
   
   const sizeClasses = {
+    xs: 'h-1',
     sm: 'h-1.5',
     md: 'h-2',
     lg: 'h-3'
   };
 
+  const textSizeClasses = {
+    xs: 'text-xs',
+    sm: 'text-xs',
+    md: 'text-xs',
+    lg: 'text-sm'
+  };
+
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between">
-        <span className={cn(
-          "font-medium text-slate-700",
-          size === 'sm' ? 'text-xs' : size === 'lg' ? 'text-sm' : 'text-xs'
-        )}>
-          {label}
-        </span>
-        {showValue && (
+      {showLabel && (
+        <div className="flex items-center justify-between">
           <span className={cn(
-            "font-semibold",
-            size === 'sm' ? 'text-xs' : size === 'lg' ? 'text-sm' : 'text-xs'
+            "font-medium text-slate-700",
+            textSizeClasses[size]
           )}>
-            {value}/{max}
+            {label}
           </span>
-        )}
-      </div>
+          {showValue && (
+            <span className={cn(
+              "font-semibold",
+              textSizeClasses[size]
+            )}>
+              {value}/{max}
+            </span>
+          )}
+        </div>
+      )}
       <div className={cn(
         "w-full bg-slate-200 rounded-full overflow-hidden",
         sizeClasses[size]
