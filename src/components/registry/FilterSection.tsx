@@ -64,43 +64,47 @@ export const FilterSection = ({
           </Select>
         </div>
 
-        <div className="md:col-span-4 flex items-center space-x-2">
-          <Select value={sortBy} onValueChange={onSortByChange}>
-            <SelectTrigger className="flex-1">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="name">Name</SelectItem>
-              <SelectItem value="creator">Creator</SelectItem>
-              <SelectItem value="price">Price</SelectItem>
-              <SelectItem value="risk">Risk Score</SelectItem>
-              <SelectItem value="date">Date</SelectItem>
-            </SelectContent>
-          </Select>
-          
-          <div className="flex items-center space-x-1">
-            <Button
-              variant={sortOrder === 'asc' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => onSortOrderChange('asc')}
-              className="h-8 w-7 p-0"
-            >
-              ↑
-            </Button>
-            <Button
-              variant={sortOrder === 'desc' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => onSortOrderChange('desc')}
-              className="h-8 w-7 p-0"
-            >
-              ↓
-            </Button>
+        <div className="md:col-span-4 overflow-x-auto">
+          <div className="flex items-center space-x-2 min-w-fit pb-2 md:pb-0">
+            <Select value={sortBy} onValueChange={onSortByChange}>
+              <SelectTrigger className="flex-1 min-w-[120px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">Name</SelectItem>
+                <SelectItem value="creator">Creator</SelectItem>
+                <SelectItem value="price">Price</SelectItem>
+                <SelectItem value="risk">Risk Score</SelectItem>
+                <SelectItem value="date">Date</SelectItem>
+              </SelectContent>
+            </Select>
+            
+            <div className="flex items-center space-x-1 flex-shrink-0">
+              <Button
+                variant={sortOrder === 'asc' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => onSortOrderChange('asc')}
+                className="h-8 w-7 p-0"
+              >
+                ↑
+              </Button>
+              <Button
+                variant={sortOrder === 'desc' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => onSortOrderChange('desc')}
+                className="h-8 w-7 p-0"
+              >
+                ↓
+              </Button>
+            </div>
+            
+            <div className="flex-shrink-0">
+              <ViewModeToggle 
+                viewMode={viewMode}
+                onViewModeChange={onViewModeChange}
+              />
+            </div>
           </div>
-          
-          <ViewModeToggle 
-            viewMode={viewMode}
-            onViewModeChange={onViewModeChange}
-          />
         </div>
       </div>
     </div>
