@@ -32,27 +32,27 @@ const typeRowColors = {
 
 export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }: IQubeTableViewProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+    <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-6">
       <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-slate-50 border-b border-slate-200">
+        <table className="w-full min-w-max">
+          <thead className="bg-slate-50 border-b border-slate-200 sticky top-0 z-10">
             <tr>
-              <th className="text-left p-4 font-medium text-slate-700">iQube Name</th>
-              <th className="text-left p-4 font-medium text-slate-700">Creator</th>
-              <th className="text-left p-4 font-medium text-slate-700">Description</th>
-              <th className="text-left p-4 font-medium text-slate-700">iQube Type</th>
-              <th className="text-left p-4 font-medium text-slate-700">Owner ID</th>
-              <th className="text-left p-4 font-medium text-slate-700">Date</th>
-              <th className="text-left p-4 font-medium text-slate-700">Sensitivity</th>
-              <th className="text-left p-4 font-medium text-slate-700">Risk</th>
-              <th className="text-left p-4 font-medium text-slate-700">Accuracy</th>
-              <th className="text-left p-4 font-medium text-slate-700">Verifiability</th>
-              <th className="text-left p-4 font-medium text-slate-700">Trust</th>
-              <th className="text-left p-4 font-medium text-slate-700">Reliability</th>
-              <th className="text-left p-4 font-medium text-slate-700">Biz Model</th>
-              <th className="text-left p-4 font-medium text-slate-700">Price</th>
-              <th className="text-left p-4 font-medium text-slate-700">To</th>
-              <th className="text-left p-4 font-medium text-slate-700">Actions</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[200px]">iQube Name</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[150px]">Creator</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[250px]">Description</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[120px]">iQube Type</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Owner ID</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Date</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Sensitivity</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Risk</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Accuracy</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Verifiability</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Trust</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Reliability</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[100px]">Biz Model</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[120px]">Price</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[80px]">To</th>
+              <th className="text-left p-4 font-medium text-slate-700 min-w-[150px]">Actions</th>
             </tr>
           </thead>
           <tbody>

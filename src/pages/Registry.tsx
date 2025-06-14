@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -8,6 +7,7 @@ import { FilterSection } from '@/components/registry/FilterSection';
 import { IQubeGrid } from '@/components/registry/IQubeGrid';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const Registry = () => {
   const { iQubes, loading, deleteIQube } = useIQubes();
@@ -102,9 +102,10 @@ export const Registry = () => {
 
   if (loading) {
     return (
-      <div className="p-8">
-        <div className="animate-pulse space-y-4">
+      <div className="h-full flex flex-col">
+        <div className="p-8 animate-pulse space-y-4">
           <div className="h-8 bg-slate-200 rounded w-1/4"></div>
+          <div className="h-32 bg-slate-200 rounded"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map(i => (
               <div key={i} className="h-64 bg-slate-200 rounded-lg"></div>
@@ -116,36 +117,42 @@ export const Registry = () => {
   }
 
   return (
-    <div className="p-8">
-      <RegistryHeader />
-
-      <FilterSection
-        searchTerm={searchTerm}
-        selectedType={selectedType}
-        sortBy={sortBy}
-        sortOrder={sortOrder}
-        viewMode={viewMode}
-        onSearchChange={setSearchTerm}
-        onTypeChange={setSelectedType}
-        onSortByChange={setSortBy}
-        onSortOrderChange={setSortOrder}
-        onViewModeChange={setViewMode}
-      />
-
-      <div className="mb-4">
-        <p className="text-sm text-slate-600">
-          Showing {filteredAndSortedIQubes.length} of {iQubes.length} iQubes
-        </p>
+    <div className="h-full flex flex-col">
+      {/* Fixed Header and Filter Section */}
+      <div className="flex-shrink-0 p-8 pb-0">
+        <RegistryHeader />
+        <FilterSection
+          searchTerm={searchTerm}
+          selectedType={selectedType}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          viewMode={viewMode}
+          onSearchChange={setSearchTerm}
+          onTypeChange={setSelectedType}
+          onSortByChange={setSortBy}
+          onSortOrderChange={setSortOrder}
+          onViewModeChange={setViewMode}
+        />
+        <div className="mb-4">
+          <p className="text-sm text-slate-600">
+            Showing {filteredAndSortedIQubes.length} of {iQubes.length} iQubes
+          </p>
+        </div>
       </div>
 
-      <IQubeGrid
-        iQubes={filteredAndSortedIQubes}
-        viewMode={viewMode}
-        onView={handleView}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onAddToCart={handleAddToCart}
-      />
+      {/* Scrollable Content Area */}
+      <div className="flex-1 px-8 pb-8">
+        <ScrollArea className="h-full">
+          <IQubeGrid
+            iQubes={filteredAndSortedIQubes}
+            viewMode={viewMode}
+            onView={handleView}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            onAddToCart={handleAddToCart}
+          />
+        </ScrollArea>
+      </div>
 
       <IQubeDetailModal
         iQube={selectedIQube}
