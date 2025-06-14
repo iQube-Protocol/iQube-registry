@@ -26,8 +26,8 @@ export const IQubeGridCard = ({
   return (
     <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
       <CardHeader className="pb-3 flex-shrink-0">
-        <div className="flex items-start justify-between">
-          <div className="flex-1 pr-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-lg text-slate-900 mb-1 line-clamp-2 min-h-[3.5rem]">
               {iQube.iQubeName}
             </h3>
@@ -36,14 +36,14 @@ export const IQubeGridCard = ({
             </p>
             <IQubeBadges iQube={iQube} />
           </div>
-          <div className="text-right flex-shrink-0 min-w-0">
-            <p className="font-bold text-slate-900 truncate text-base">
+          <div className="text-right flex-shrink-0 min-w-0 max-w-[120px]">
+            <p className="font-bold text-slate-900 text-base leading-tight break-words">
               {priceDisplay.primary}
             </p>
-            <p className="text-slate-500 truncate text-base">
+            <p className="text-slate-500 text-sm leading-tight break-words">
               {priceDisplay.secondary}
             </p>
-            <p className="text-xs text-slate-400 truncate">
+            <p className="text-xs text-slate-400 leading-tight break-words">
               per {iQube.priceTo.toLowerCase()}
             </p>
           </div>
