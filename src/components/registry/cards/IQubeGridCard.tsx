@@ -61,18 +61,20 @@ export const IQubeGridCard = ({
           <ScoreIndicator label="Verifiability" value={iQube.verifiabilityScore} size="sm" scoreType="verifiability" />
         </div>
         
-        <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto">
-          <IQubeActionButtons
-            iQube={iQube}
-            onView={onView}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onAddToCart={onAddToCart}
-          />
-          <span className="text-xs text-slate-400 flex-shrink-0 ml-2">
+        <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto min-w-0">
+          <div className="flex-1 min-w-0 mr-2">
+            <IQubeActionButtons
+              iQube={iQube}
+              onView={onView}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              onAddToCart={onAddToCart}
+            />
+          </div>
+          <span className="text-xs text-slate-400 flex-shrink-0 whitespace-nowrap">
             {new Date(iQube.transactionDate).toLocaleDateString('en-US', { 
-              month: 'numeric', 
-              day: 'numeric', 
+              month: '2-digit', 
+              day: '2-digit', 
               year: '2-digit' 
             })}
           </span>
