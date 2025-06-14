@@ -52,8 +52,8 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
               <th className="text-left p-4 font-medium text-slate-700">Reliability</th>
               <th className="text-left p-4 font-medium text-slate-700">Biz Model</th>
               <th className="text-left p-4 font-medium text-slate-700">Price</th>
-              <th className="text-left p-4 font-medium text-slate-700">Price To</th>
-              <th className="text-left p-4 font-medium text-slate-700">Duration</th>
+              <th className="text-left p-4 font-medium text-slate-700">To</th>
+              <th className="text-left p-4 font-medium text-slate-700">Per</th>
               <th className="text-left p-4 font-medium text-slate-700">Actions</th>
             </tr>
           </thead>
