@@ -190,7 +190,7 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
           {iQube.iQubeDescription}
         </p>
         
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-3">
           <ScoreIndicator 
             label="Risk" 
             value={iQube.riskScore} 
@@ -202,6 +202,12 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
             value={iQube.accuracyScore} 
             size="sm"
             scoreType="accuracy"
+          />
+          <ScoreIndicator 
+            label="Verifiability" 
+            value={iQube.verifiabilityScore} 
+            size="sm"
+            scoreType="verifiability"
           />
         </div>
         
