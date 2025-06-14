@@ -3,9 +3,12 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Eye, Edit, Trash, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
+import { iQubeTypeTooltips, businessModelTooltips } from '@/utils/tooltipContent';
+
 interface IQubeCardProps {
   iQube: IQube;
   onView: (iQube: IQube) => void;
@@ -68,12 +71,26 @@ export const IQubeCard = ({
               </div>
               
               <div className="col-span-2 flex flex-col space-y-1">
-                <Badge className={cn('text-xs w-fit', typeColors[iQube.iQubeType])}>
-                  {iQube.iQubeType}
-                </Badge>
-                <Badge className={cn('text-xs w-fit', businessModelColors[iQube.businessModel])}>
-                  {iQube.businessModel}
-                </Badge>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Badge className={cn('text-xs w-fit cursor-help', typeColors[iQube.iQubeType])}>
+                      {iQube.iQubeType}
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs">
+                    <p>{iQubeTypeTooltips[iQube.iQubeType]}</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Badge className={cn('text-xs w-fit cursor-help', businessModelColors[iQube.businessModel])}>
+                      {iQube.businessModel}
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs">
+                    <p>{businessModelTooltips[iQube.businessModel]}</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
               
               <div className="col-span-2 grid grid-cols-1 gap-2">
@@ -125,12 +142,26 @@ export const IQubeCard = ({
               by {iQube.iQubeCreator}
             </p>
             <div className="flex items-center space-x-2">
-              <Badge className={cn('text-xs', typeColors[iQube.iQubeType])}>
-                {iQube.iQubeType}
-              </Badge>
-              <Badge className={cn('text-xs', businessModelColors[iQube.businessModel])}>
-                {iQube.businessModel}
-              </Badge>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Badge className={cn('text-xs cursor-help', typeColors[iQube.iQubeType])}>
+                    {iQube.iQubeType}
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs">
+                  <p>{iQubeTypeTooltips[iQube.iQubeType]}</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Badge className={cn('text-xs cursor-help', businessModelColors[iQube.businessModel])}>
+                    {iQube.businessModel}
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs">
+                  <p>{businessModelTooltips[iQube.businessModel]}</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
           <div className="text-right flex-shrink-0 min-w-0">

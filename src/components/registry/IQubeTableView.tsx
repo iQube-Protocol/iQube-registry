@@ -1,11 +1,12 @@
-
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Eye, Edit, Trash, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
+import { iQubeTypeTooltips, businessModelTooltips } from '@/utils/tooltipContent';
 
 interface IQubeTableViewProps {
   iQubes: IQube[];
@@ -78,9 +79,16 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                     </div>
                   </td>
                   <td className="p-4">
-                    <Badge className={cn('text-xs', typeColors[iqube.iQubeType])}>
-                      {iqube.iQubeType}
-                    </Badge>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Badge className={cn('text-xs cursor-help', typeColors[iqube.iQubeType])}>
+                          {iqube.iQubeType}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" className="max-w-xs">
+                        <p>{iQubeTypeTooltips[iqube.iQubeType]}</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </td>
                   <td className="p-4">
                     <Badge variant="outline" className="text-xs">
@@ -175,9 +183,16 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                     </div>
                   </td>
                   <td className="p-4">
-                    <Badge variant="outline" className="text-xs">
-                      {iqube.businessModel}
-                    </Badge>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Badge variant="outline" className="text-xs cursor-help">
+                          {iqube.businessModel}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" className="max-w-xs">
+                        <p>{businessModelTooltips[iqube.businessModel]}</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </td>
                   <td className="p-4 font-medium text-slate-900">
                     <div className="text-right min-w-0">
