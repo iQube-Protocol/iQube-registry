@@ -1,12 +1,23 @@
-
 import { useState, useEffect } from 'react';
 import { IQube, IQubeFormData, AnalyticsData } from '@/types/iQube';
 
 const STORAGE_KEY = 'iqubes-registry';
 
+// Helper function to calculate composite scores
+const calculateCompositeScores = (iqube: Omit<IQube, 'trustScore' | 'reliabilityIndex'>): IQube => {
+  const trustScore = Math.round(((iqube.accuracyScore + iqube.verifiabilityScore) / 2) * 10) / 10;
+  const reliabilityIndex = Math.round(((iqube.accuracyScore + iqube.verifiabilityScore + (10 - iqube.riskScore)) / 3) * 10) / 10;
+  
+  return {
+    ...iqube,
+    trustScore,
+    reliabilityIndex
+  };
+};
+
 // Sample data to start with
 const initialData: IQube[] = [
-  {
+  calculateCompositeScores({
     id: '1',
     iQubeName: 'Qrypto Profile',
     iQubeCreator: 'Aigent Z',
@@ -20,15 +31,15 @@ const initialData: IQube[] = [
     accuracyScore: 5,
     riskScore: 6,
     businessModel: 'Buy',
-    price: 20, // 20 cents = $0.20
+    price: 20,
     priceTo: 'Purchase',
     durationOfRights: 'Forever',
     publicWalletKey: '0x742d35Cc6532C4532f5ccC1b1f94396aAbc4532e',
     blakQubeSchema: 'Structured',
     createdAt: '2024-12-19T10:00:00Z',
     updatedAt: '2024-12-19T10:00:00Z'
-  },
-  {
+  }),
+  calculateCompositeScores({
     id: '2',
     iQubeName: 'Trading Agent',
     iQubeCreator: 'CryptoMind Labs',
@@ -42,15 +53,15 @@ const initialData: IQube[] = [
     accuracyScore: 8,
     riskScore: 7,
     businessModel: 'License',
-    price: 48, // 48 cents = $0.48
+    price: 48,
     priceTo: 'License',
     durationOfRights: 'Per Month',
     publicWalletKey: '0x8f4A9b2c1d5e8f3a6b9c2d5e8f3a6b9c2d5e8f3a',
     blakQubeSchema: 'Access Keys',
     createdAt: '2024-12-18T14:30:00Z',
     updatedAt: '2024-12-18T14:30:00Z'
-  },
-  {
+  }),
+  calculateCompositeScores({
     id: '3',
     iQubeName: 'Market Sentiment Dataset',
     iQubeCreator: 'DataFlow Inc',
@@ -64,14 +75,14 @@ const initialData: IQube[] = [
     accuracyScore: 6,
     riskScore: 3,
     businessModel: 'Subscribe',
-    price: 35, // 35 cents = $0.35
+    price: 35,
     priceTo: 'Use',
     durationOfRights: 'Per Month',
     publicWalletKey: '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b',
     blakQubeSchema: 'Structured',
     createdAt: '2024-12-17T09:15:00Z',
     updatedAt: '2024-12-17T09:15:00Z'
-  }
+  })
 ];
 
 export const useIQubes = () => {
@@ -81,7 +92,10 @@ export const useIQubes = () => {
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
-      setIQubes(JSON.parse(stored));
+      const storedData = JSON.parse(stored);
+      // Recalculate composite scores for existing data
+      const dataWithCompositeScores = storedData.map((iqube: IQube) => calculateCompositeScores(iqube));
+      setIQubes(dataWithCompositeScores);
     } else {
       setIQubes(initialData);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initialData));
@@ -94,24 +108,26 @@ export const useIQubes = () => {
   };
 
   const addIQube = (iQubeData: IQubeFormData) => {
-    const newIQube: IQube = {
+    const newIQubeWithCompositeScores = calculateCompositeScores({
       ...iQubeData,
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
-    };
-    const updated = [...iQubes, newIQube];
+    });
+    const updated = [...iQubes, newIQubeWithCompositeScores];
     setIQubes(updated);
     saveToStorage(updated);
-    return newIQube;
+    return newIQubeWithCompositeScores;
   };
 
   const updateIQube = (id: string, iQubeData: Partial<IQubeFormData>) => {
-    const updated = iQubes.map(iqube => 
-      iqube.id === id 
-        ? { ...iqube, ...iQubeData, updatedAt: new Date().toISOString() }
-        : iqube
-    );
+    const updated = iQubes.map(iqube => {
+      if (iqube.id === id) {
+        const updatedIQube = { ...iqube, ...iQubeData, updatedAt: new Date().toISOString() };
+        return calculateCompositeScores(updatedIQube);
+      }
+      return iqube;
+    });
     setIQubes(updated);
     saveToStorage(updated);
   };

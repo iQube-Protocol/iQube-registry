@@ -1,10 +1,11 @@
+
 import { IQube } from '@/types/iQube';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Edit, Calendar, User, Shield, Wallet } from 'lucide-react';
+import { Edit, Calendar, User, Wallet } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
 
@@ -40,9 +41,6 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
               <div className="flex items-center space-x-2 mb-4">
                 <Badge className={cn('text-sm', typeColors[iQube.iQubeType])}>
                   {iQube.iQubeType}
-                </Badge>
-                <Badge variant="outline" className="text-sm">
-                  {iQube.ownerType}
                 </Badge>
                 <Badge variant="secondary" className="text-sm">
                   {iQube.ownerIdentifiability}
@@ -88,34 +86,63 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
 
           <Separator />
 
-          {/* Scores Grid */}
+          {/* Core Scores */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Performance Metrics</h3>
+            <h3 className="font-semibold text-slate-900 mb-4">Core Performance Metrics</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <ScoreIndicator 
                 label="Sensitivity Score" 
                 value={iQube.sensitivityScore} 
                 size="lg"
-                color="purple"
-              />
-              <ScoreIndicator 
-                label="Verifiability Score" 
-                value={iQube.verifiabilityScore} 
-                size="lg"
-                color="blue"
-              />
-              <ScoreIndicator 
-                label="Accuracy Score" 
-                value={iQube.accuracyScore} 
-                size="lg"
-                color="green"
+                scoreType="sensitivity"
               />
               <ScoreIndicator 
                 label="Risk Score" 
                 value={iQube.riskScore} 
                 size="lg"
-                color="red"
+                scoreType="risk"
               />
+              <ScoreIndicator 
+                label="Accuracy Score" 
+                value={iQube.accuracyScore} 
+                size="lg"
+                scoreType="accuracy"
+              />
+              <ScoreIndicator 
+                label="Verifiability Score" 
+                value={iQube.verifiabilityScore} 
+                size="lg"
+                scoreType="verifiability"
+              />
+            </div>
+          </div>
+
+          {/* Composite Scores */}
+          <div>
+            <h3 className="font-semibold text-slate-900 mb-4">Composite Scores</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-slate-50 rounded-lg p-4">
+                <ScoreIndicator 
+                  label="Trust Score" 
+                  value={iQube.trustScore || 0} 
+                  size="lg"
+                  scoreType="trust"
+                />
+                <p className="text-xs text-slate-500 mt-2">
+                  Calculated as (Accuracy + Verifiability) / 2
+                </p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-4">
+                <ScoreIndicator 
+                  label="Reliability Index" 
+                  value={iQube.reliabilityIndex || 0} 
+                  size="lg"
+                  scoreType="reliability"
+                />
+                <p className="text-xs text-slate-500 mt-2">
+                  Calculated as (Accuracy + Verifiability + (10 - Risk)) / 3
+                </p>
+              </div>
             </div>
           </div>
 

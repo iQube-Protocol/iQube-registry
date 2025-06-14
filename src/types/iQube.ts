@@ -1,4 +1,3 @@
-
 export interface IQube {
   id: string;
   iQubeName: string;
@@ -20,9 +19,12 @@ export interface IQube {
   blakQubeSchema: 'Structured' | 'Unstructured' | 'Access Keys';
   createdAt: string;
   updatedAt: string;
+  // Calculated composite scores
+  trustScore?: number;
+  reliabilityIndex?: number;
 }
 
-export interface IQubeFormData extends Omit<IQube, 'id' | 'createdAt' | 'updatedAt'> {}
+export interface IQubeFormData extends Omit<IQube, 'id' | 'createdAt' | 'updatedAt' | 'trustScore' | 'reliabilityIndex'> {}
 
 export interface AnalyticsData {
   totalIQubes: number;

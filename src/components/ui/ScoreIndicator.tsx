@@ -8,23 +8,26 @@ interface ScoreIndicatorProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';
   showValue?: boolean;
   showLabel?: boolean;
-  color?: 'blue' | 'green' | 'yellow' | 'red' | 'purple';
+  scoreType?: 'risk' | 'sensitivity' | 'accuracy' | 'verifiability' | 'trust' | 'reliability';
 }
 
-const colorClasses = {
-  blue: 'bg-blue-500',
-  green: 'bg-green-500',
-  yellow: 'bg-yellow-500',
-  red: 'bg-red-500',
-  purple: 'bg-purple-500'
+const getDotsFromScore = (value: number, max: number = 10): number => {
+  const normalizedScore = Math.min(Math.max(value, 0), max);
+  return Math.ceil(normalizedScore / 2);
 };
 
-const getColorByScore = (value: number, max: number = 10): keyof typeof colorClasses => {
-  const percentage = (value / max) * 100;
-  if (percentage >= 80) return 'green';
-  if (percentage >= 60) return 'blue';
-  if (percentage >= 40) return 'yellow';
-  return 'red';
+const getColorByScoreType = (value: number, scoreType: string): string => {
+  if (scoreType === 'risk' || scoreType === 'sensitivity') {
+    // Higher scores are more concerning: Green (1-4), Yellow (5-7), Red (8-10)
+    if (value <= 4) return 'bg-green-500';
+    if (value <= 7) return 'bg-yellow-500';
+    return 'bg-red-500';
+  } else {
+    // Higher scores are better: Red (1-3), Yellow (4-6), Green (7-10)
+    if (value <= 3) return 'bg-red-500';
+    if (value <= 6) return 'bg-yellow-500';
+    return 'bg-green-500';
+  }
 };
 
 export const ScoreIndicator = ({ 
@@ -34,22 +37,22 @@ export const ScoreIndicator = ({
   size = 'md',
   showValue = true,
   showLabel = true,
-  color 
+  scoreType = 'accuracy'
 }: ScoreIndicatorProps) => {
-  const percentage = (value / max) * 100;
-  const colorClass = color ? colorClasses[color] : colorClasses[getColorByScore(value, max)];
+  const dots = getDotsFromScore(value, max);
+  const colorClass = getColorByScoreType(value, scoreType);
   
-  const sizeClasses = {
-    xs: 'h-1',
-    sm: 'h-1.5',
-    md: 'h-2',
-    lg: 'h-3'
+  const dotSizeClasses = {
+    xs: 'w-1.5 h-1.5',
+    sm: 'w-2 h-2',
+    md: 'w-2.5 h-2.5',
+    lg: 'w-3 h-3'
   };
 
   const textSizeClasses = {
     xs: 'text-xs',
     sm: 'text-xs',
-    md: 'text-xs',
+    md: 'text-sm',
     lg: 'text-sm'
   };
 
@@ -65,7 +68,7 @@ export const ScoreIndicator = ({
           </span>
           {showValue && (
             <span className={cn(
-              "font-semibold",
+              "font-semibold text-slate-600",
               textSizeClasses[size]
             )}>
               {value}/{max}
@@ -73,14 +76,19 @@ export const ScoreIndicator = ({
           )}
         </div>
       )}
-      <div className={cn(
-        "w-full bg-slate-200 rounded-full overflow-hidden",
-        sizeClasses[size]
-      )}>
-        <div 
-          className={cn(colorClass, "transition-all duration-500 ease-out", sizeClasses[size])}
-          style={{ width: `${percentage}%` }}
-        />
+      <div className="flex items-center space-x-1">
+        {[1, 2, 3, 4, 5].map((dotIndex) => (
+          <div
+            key={dotIndex}
+            className={cn(
+              "rounded-full transition-all duration-300",
+              dotSizeClasses[size],
+              dotIndex <= dots
+                ? colorClass
+                : "bg-slate-200"
+            )}
+          />
+        ))}
       </div>
     </div>
   );

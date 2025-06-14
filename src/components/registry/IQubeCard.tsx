@@ -71,11 +71,13 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
                   label="Risk" 
                   value={iQube.riskScore} 
                   size="xs"
+                  scoreType="risk"
                 />
                 <ScoreIndicator 
-                  label="Accuracy" 
-                  value={iQube.accuracyScore} 
+                  label="Trust" 
+                  value={iQube.trustScore || 0} 
                   size="xs"
+                  scoreType="trust"
                 />
               </div>
               
@@ -177,11 +179,40 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
             label="Risk" 
             value={iQube.riskScore} 
             size="sm"
+            scoreType="risk"
+          />
+          <ScoreIndicator 
+            label="Sensitivity" 
+            value={iQube.sensitivityScore} 
+            size="sm"
+            scoreType="sensitivity"
           />
           <ScoreIndicator 
             label="Accuracy" 
             value={iQube.accuracyScore} 
             size="sm"
+            scoreType="accuracy"
+          />
+          <ScoreIndicator 
+            label="Verifiability" 
+            value={iQube.verifiabilityScore} 
+            size="sm"
+            scoreType="verifiability"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+          <ScoreIndicator 
+            label="Trust Score" 
+            value={iQube.trustScore || 0} 
+            size="sm"
+            scoreType="trust"
+          />
+          <ScoreIndicator 
+            label="Reliability" 
+            value={iQube.reliabilityIndex || 0} 
+            size="sm"
+            scoreType="reliability"
           />
         </div>
         

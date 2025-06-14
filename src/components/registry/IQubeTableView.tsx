@@ -1,3 +1,4 @@
+
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -44,9 +45,11 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
               <th className="text-left p-4 font-medium text-slate-700">Owner ID</th>
               <th className="text-left p-4 font-medium text-slate-700">Date</th>
               <th className="text-left p-4 font-medium text-slate-700">Sensitivity</th>
-              <th className="text-left p-4 font-medium text-slate-700">Verifiability</th>
-              <th className="text-left p-4 font-medium text-slate-700">Accuracy</th>
               <th className="text-left p-4 font-medium text-slate-700">Risk</th>
+              <th className="text-left p-4 font-medium text-slate-700">Accuracy</th>
+              <th className="text-left p-4 font-medium text-slate-700">Verifiability</th>
+              <th className="text-left p-4 font-medium text-slate-700">Trust</th>
+              <th className="text-left p-4 font-medium text-slate-700">Reliability</th>
               <th className="text-left p-4 font-medium text-slate-700">Biz Model</th>
               <th className="text-left p-4 font-medium text-slate-700">Price</th>
               <th className="text-left p-4 font-medium text-slate-700">Price To</th>
@@ -89,23 +92,87 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                     {new Date(iqube.transactionDate).toLocaleDateString()}
                   </td>
                   <td className="p-4">
-                    <div className="w-16">
-                      <ScoreIndicator value={iqube.sensitivityScore} size="xs" showLabel={false} />
+                    <div className="w-20">
+                      <ScoreIndicator 
+                        value={iqube.sensitivityScore} 
+                        size="xs" 
+                        showLabel={false} 
+                        showValue={false}
+                        scoreType="sensitivity"
+                      />
+                      <div className="text-xs text-center text-slate-500 mt-1">
+                        {iqube.sensitivityScore}
+                      </div>
                     </div>
                   </td>
                   <td className="p-4">
-                    <div className="w-16">
-                      <ScoreIndicator value={iqube.verifiabilityScore} size="xs" showLabel={false} />
+                    <div className="w-20">
+                      <ScoreIndicator 
+                        value={iqube.riskScore} 
+                        size="xs" 
+                        showLabel={false} 
+                        showValue={false}
+                        scoreType="risk"
+                      />
+                      <div className="text-xs text-center text-slate-500 mt-1">
+                        {iqube.riskScore}
+                      </div>
                     </div>
                   </td>
                   <td className="p-4">
-                    <div className="w-16">
-                      <ScoreIndicator value={iqube.accuracyScore} size="xs" showLabel={false} />
+                    <div className="w-20">
+                      <ScoreIndicator 
+                        value={iqube.accuracyScore} 
+                        size="xs" 
+                        showLabel={false} 
+                        showValue={false}
+                        scoreType="accuracy"
+                      />
+                      <div className="text-xs text-center text-slate-500 mt-1">
+                        {iqube.accuracyScore}
+                      </div>
                     </div>
                   </td>
                   <td className="p-4">
-                    <div className="w-16">
-                      <ScoreIndicator value={iqube.riskScore} size="xs" showLabel={false} />
+                    <div className="w-20">
+                      <ScoreIndicator 
+                        value={iqube.verifiabilityScore} 
+                        size="xs" 
+                        showLabel={false} 
+                        showValue={false}
+                        scoreType="verifiability"
+                      />
+                      <div className="text-xs text-center text-slate-500 mt-1">
+                        {iqube.verifiabilityScore}
+                      </div>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <div className="w-20">
+                      <ScoreIndicator 
+                        value={iqube.trustScore || 0} 
+                        size="xs" 
+                        showLabel={false} 
+                        showValue={false}
+                        scoreType="trust"
+                      />
+                      <div className="text-xs text-center text-slate-500 mt-1">
+                        {iqube.trustScore || 0}
+                      </div>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <div className="w-20">
+                      <ScoreIndicator 
+                        value={iqube.reliabilityIndex || 0} 
+                        size="xs" 
+                        showLabel={false} 
+                        showValue={false}
+                        scoreType="reliability"
+                      />
+                      <div className="text-xs text-center text-slate-500 mt-1">
+                        {iqube.reliabilityIndex || 0}
+                      </div>
                     </div>
                   </td>
                   <td className="p-4">
@@ -157,7 +224,7 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                         variant="ghost"
                         size="sm"
                         onClick={() => onDelete(iqube.id)}
-                        className="text-slash-600 hover:text-red-600 h-8 w-8 p-0"
+                        className="text-slate-600 hover:text-red-600 h-8 w-8 p-0"
                       >
                         <Trash className="w-4 h-4" />
                       </Button>
