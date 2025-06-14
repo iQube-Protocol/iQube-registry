@@ -22,8 +22,8 @@ export const IQubeActionButtons = ({
   layout = 'horizontal'
 }: IQubeActionButtonsProps) => {
   const containerClass = layout === 'horizontal' 
-    ? "flex items-center space-x-1" 
-    : "flex items-center space-x-1";
+    ? "flex items-center justify-center space-x-2 w-full" 
+    : "flex items-center justify-center space-x-2 w-full";
 
   return (
     <div className={containerClass}>
