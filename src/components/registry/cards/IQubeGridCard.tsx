@@ -1,11 +1,9 @@
-
 import { IQube } from '@/types/iQube';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { formatPrice } from '@/utils/priceUtils';
 import { IQubeBadges } from './IQubeBadges';
 import { IQubeActionButtons } from './IQubeActionButtons';
-
 interface IQubeGridCardProps {
   iQube: IQube;
   onView: (iQube: IQube) => void;
@@ -13,7 +11,6 @@ interface IQubeGridCardProps {
   onDelete: (id: string) => void;
   onAddToCart?: (iQube: IQube) => void;
 }
-
 export const IQubeGridCard = ({
   iQube,
   onView,
@@ -22,9 +19,7 @@ export const IQubeGridCard = ({
   onAddToCart
 }: IQubeGridCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
-
-  return (
-    <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
+  return <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
       <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -61,19 +56,12 @@ export const IQubeGridCard = ({
           <ScoreIndicator label="Verifiability" value={iQube.verifiabilityScore} size="sm" scoreType="verifiability" />
         </div>
         
-        <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto">
-          <IQubeActionButtons
-            iQube={iQube}
-            onView={onView}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onAddToCart={onAddToCart}
-          />
-          <span className="text-xs text-slate-400">
-            {new Date(iQube.transactionDate).toLocaleDateString()}
-          </span>
+        <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto min-w-0">
+          <div className="flex-1 min-w-0 mr-2">
+            <IQubeActionButtons iQube={iQube} onView={onView} onEdit={onEdit} onDelete={onDelete} onAddToCart={onAddToCart} />
+          </div>
+          
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
