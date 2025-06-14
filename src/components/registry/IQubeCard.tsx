@@ -12,6 +12,7 @@ interface IQubeCardProps {
   onView: (iQube: IQube) => void;
   onEdit: (iQube: IQube) => void;
   onDelete: (id: string) => void;
+  viewMode?: 'grid' | 'list';
 }
 
 const typeColors = {
@@ -22,13 +23,103 @@ const typeColors = {
   AigentQube: 'bg-red-100 text-red-800'
 };
 
-const getRiskColor = (score: number) => {
-  if (score <= 3) return 'text-green-600';
-  if (score <= 6) return 'text-yellow-600';
-  return 'text-red-600';
+const typeAccentColors = {
+  DataQube: 'border-l-blue-500',
+  ContentQube: 'border-l-green-500',
+  ToolQube: 'border-l-purple-500',
+  ModelQube: 'border-l-orange-500',
+  AigentQube: 'border-l-red-500'
 };
 
-export const IQubeCard = ({ iQube, onView, onEdit, onDelete }: IQubeCardProps) => {
+export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }: IQubeCardProps) => {
+  if (viewMode === 'list') {
+    return (
+      <div className={cn(
+        "bg-white rounded-lg border border-slate-200 hover:shadow-md transition-shadow duration-200 border-l-4",
+        typeAccentColors[iQube.iQubeType]
+      )}>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 grid grid-cols-12 gap-4 items-center">
+              <div className="col-span-3">
+                <h3 className="font-semibold text-slate-900 mb-1">
+                  {iQube.iQubeName}
+                </h3>
+                <p className="text-sm text-slate-600">
+                  by {iQube.iQubeCreator}
+                </p>
+              </div>
+              
+              <div className="col-span-4">
+                <p className="text-sm text-slate-600 line-clamp-2">
+                  {iQube.iQubeDescription}
+                </p>
+              </div>
+              
+              <div className="col-span-2 flex flex-col space-y-1">
+                <Badge className={cn('text-xs w-fit', typeColors[iQube.iQubeType])}>
+                  {iQube.iQubeType}
+                </Badge>
+                <Badge variant="outline" className="text-xs w-fit">
+                  {iQube.ownerType}
+                </Badge>
+              </div>
+              
+              <div className="col-span-2 grid grid-cols-2 gap-2">
+                <ScoreIndicator 
+                  label="Risk" 
+                  value={iQube.riskScore} 
+                  size="xs"
+                />
+                <ScoreIndicator 
+                  label="Accuracy" 
+                  value={iQube.accuracyScore} 
+                  size="xs"
+                />
+              </div>
+              
+              <div className="col-span-1 text-right">
+                <p className="text-lg font-bold text-slate-900">
+                  ${iQube.price.toFixed(2)}
+                </p>
+                <p className="text-xs text-slate-500">
+                  to {iQube.priceTo}
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-1 ml-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onView(iQube)}
+                className="text-slate-600 hover:text-blue-600"
+              >
+                <Eye className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onEdit(iQube)}
+                className="text-slate-600 hover:text-green-600"
+              >
+                <Edit className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onDelete(iQube.id)}
+                className="text-slate-600 hover:text-red-600"
+              >
+                <Trash className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200">
       <CardHeader className="pb-3">

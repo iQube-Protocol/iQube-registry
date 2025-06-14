@@ -4,10 +4,11 @@ import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
 import { IQubeCard } from '@/components/registry/IQubeCard';
 import { IQubeDetailModal } from '@/components/registry/IQubeDetailModal';
+import { IQubeTableView } from '@/components/registry/IQubeTableView';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Filter, Plus, Grid, List } from 'lucide-react';
+import { Search, Filter, Plus, Grid, List, Table } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
 
@@ -20,7 +21,7 @@ export const Registry = () => {
   const [selectedOwnerType, setSelectedOwnerType] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'table'>('grid');
   const [selectedIQube, setSelectedIQube] = useState<IQube | null>(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
 
@@ -201,13 +202,27 @@ export const Registry = () => {
             >
               ↓
             </Button>
-            <div className="border-l border-slate-200 pl-2 ml-2">
+            <div className="border-l border-slate-200 pl-2 ml-2 flex space-x-1">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('grid')}
               >
                 <Grid className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('list')}
+              >
+                <List className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'table' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('table')}
+              >
+                <Table className="w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -221,7 +236,7 @@ export const Registry = () => {
         </p>
       </div>
 
-      {/* iQubes Grid */}
+      {/* iQubes Display */}
       {filteredAndSortedIQubes.length === 0 ? (
         <div className="text-center py-12">
           <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -229,6 +244,26 @@ export const Registry = () => {
           </div>
           <h3 className="text-lg font-semibold text-slate-900 mb-2">No iQubes found</h3>
           <p className="text-slate-600">Try adjusting your search or filters</p>
+        </div>
+      ) : viewMode === 'table' ? (
+        <IQubeTableView 
+          iQubes={filteredAndSortedIQubes}
+          onView={handleView}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      ) : viewMode === 'list' ? (
+        <div className="space-y-3">
+          {filteredAndSortedIQubes.map((iqube) => (
+            <IQubeCard
+              key={iqube.id}
+              iQube={iqube}
+              onView={handleView}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              viewMode="list"
+            />
+          ))}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -239,6 +274,7 @@ export const Registry = () => {
               onView={handleView}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              viewMode="grid"
             />
           ))}
         </div>
