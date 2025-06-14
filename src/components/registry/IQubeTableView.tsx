@@ -1,3 +1,4 @@
+
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -32,7 +33,7 @@ const typeRowColors = {
 
 export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }: IQubeTableViewProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-6">
+    <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-max">
           <thead className="bg-slate-50 border-b border-slate-200 sticky top-0 z-10">
