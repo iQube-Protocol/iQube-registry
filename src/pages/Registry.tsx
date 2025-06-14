@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -167,7 +166,7 @@ export const Registry = () => {
               <SelectItem value="ContentQube">ContentQube</SelectItem>
               <SelectItem value="ToolQube">ToolQube</SelectItem>
               <SelectItem value="ModelQube">ModelQube</SelectItem>
-              <SelectItem value="AigentQube">AigentQube</SelectItem>
+              <SelectItem value="AgentQube">AgentQube</SelectItem>
             </SelectContent>
           </Select>
 

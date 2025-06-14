@@ -22,7 +22,7 @@ const typeColors = {
   ContentQube: 'bg-green-100 text-green-800',
   ToolQube: 'bg-purple-100 text-purple-800',
   ModelQube: 'bg-orange-100 text-orange-800',
-  AigentQube: 'bg-red-100 text-red-800'
+  AgentQube: 'bg-red-100 text-red-800'
 };
 
 const typeAccentColors = {
@@ -30,7 +30,7 @@ const typeAccentColors = {
   ContentQube: 'border-l-green-500',
   ToolQube: 'border-l-purple-500',
   ModelQube: 'border-l-orange-500',
-  AigentQube: 'border-l-red-500'
+  AgentQube: 'border-l-red-500'
 };
 
 export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMode = 'grid' }: IQubeCardProps) => {
@@ -88,7 +88,7 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
                     {priceDisplay.secondary}
                   </p>
                   <p className="text-xs text-slate-400 truncate">
-                    to {iQube.priceTo}
+                    per {iQube.priceTo.toLowerCase()}
                   </p>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
               {priceDisplay.secondary}
             </p>
             <p className="text-xs text-slate-400 truncate">
-              to {iQube.priceTo}
+              per {iQube.priceTo.toLowerCase()}
             </p>
           </div>
         </div>

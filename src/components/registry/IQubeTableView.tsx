@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -20,7 +19,7 @@ const typeColors = {
   ContentQube: 'bg-green-50 border-green-200 text-green-800',
   ToolQube: 'bg-purple-50 border-purple-200 text-purple-800',
   ModelQube: 'bg-orange-50 border-orange-200 text-orange-800',
-  AigentQube: 'bg-red-50 border-red-200 text-red-800'
+  AgentQube: 'bg-red-50 border-red-200 text-red-800'
 };
 
 const typeRowColors = {
@@ -28,7 +27,7 @@ const typeRowColors = {
   ContentQube: 'hover:bg-green-50',
   ToolQube: 'hover:bg-purple-50',
   ModelQube: 'hover:bg-orange-50',
-  AigentQube: 'hover:bg-red-50'
+  AgentQube: 'hover:bg-red-50'
 };
 
 export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }: IQubeTableViewProps) => {
@@ -124,7 +123,7 @@ export const IQubeTableView = ({ iQubes, onView, onEdit, onDelete, onAddToCart }
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 text-slate-600 text-sm">{iqube.priceTo}</td>
+                  <td className="p-4 text-slate-600 text-sm">per {iqube.priceTo.toLowerCase()}</td>
                   <td className="p-4 text-slate-600 text-sm">{iqube.durationOfRights}</td>
                   <td className="p-4">
                     <div className="flex items-center space-x-1">

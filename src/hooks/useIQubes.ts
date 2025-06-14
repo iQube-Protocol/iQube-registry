@@ -21,7 +21,7 @@ const initialData: IQube[] = [
     riskScore: 6,
     businessModel: 'Buy',
     price: 20, // 20 cents = $0.20
-    priceTo: 'Sell',
+    priceTo: 'Purchase',
     durationOfRights: 'Forever',
     publicWalletKey: '0x742d35Cc6532C4532f5ccC1b1f94396aAbc4532e',
     blakQubeSchema: 'Structured',
@@ -30,11 +30,11 @@ const initialData: IQube[] = [
   },
   {
     id: '2',
-    iQubeName: 'AI Trading Bot',
+    iQubeName: 'Trading Agent',
     iQubeCreator: 'CryptoMind Labs',
     iQubeDescription: 'Advanced trading algorithm for DeFi protocols with risk management capabilities',
     ownerType: 'Organisation',
-    iQubeType: 'AigentQube',
+    iQubeType: 'AgentQube',
     ownerIdentifiability: 'Identifiable',
     transactionDate: '2024-12-18',
     sensitivityScore: 8,
@@ -42,7 +42,7 @@ const initialData: IQube[] = [
     accuracyScore: 8,
     riskScore: 7,
     businessModel: 'License',
-    price: 85, // 85 cents = $0.85
+    price: 48, // 48 cents = $0.48
     priceTo: 'License',
     durationOfRights: 'Per Month',
     publicWalletKey: '0x8f4A9b2c1d5e8f3a6b9c2d5e8f3a6b9c2d5e8f3a',
@@ -64,7 +64,7 @@ const initialData: IQube[] = [
     accuracyScore: 6,
     riskScore: 3,
     businessModel: 'Subscribe',
-    price: 65, // 65 cents = $0.65
+    price: 35, // 35 cents = $0.35
     priceTo: 'Use',
     durationOfRights: 'Per Month',
     publicWalletKey: '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b',

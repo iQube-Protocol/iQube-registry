@@ -20,7 +20,7 @@ const typeColors = {
   ContentQube: 'bg-green-100 text-green-800',
   ToolQube: 'bg-purple-100 text-purple-800',
   ModelQube: 'bg-orange-100 text-orange-800',
-  AigentQube: 'bg-red-100 text-red-800'
+  AgentQube: 'bg-red-100 text-red-800'
 };
 
 export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailModalProps) => {
@@ -57,7 +57,7 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
                 {priceDisplay.secondary}
               </p>
               <p className="text-sm text-slate-600">
-                {iQube.businessModel} to {iQube.priceTo}
+                {iQube.businessModel} per {iQube.priceTo.toLowerCase()}
               </p>
               <p className="text-xs text-slate-500">
                 {iQube.durationOfRights}
