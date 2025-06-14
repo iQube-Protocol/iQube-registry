@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,6 +5,7 @@ import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { Button } from '@/components/ui/button';
 import { Eye, Edit, Trash } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { formatPrice } from '@/utils/priceUtils';
 
 interface IQubeCardProps {
   iQube: IQube;
@@ -32,6 +32,8 @@ const typeAccentColors = {
 };
 
 export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }: IQubeCardProps) => {
+  const priceDisplay = formatPrice(iQube.price);
+
   if (viewMode === 'list') {
     return (
       <div className={cn(
@@ -80,9 +82,12 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
               
               <div className="col-span-1 text-right">
                 <p className="text-lg font-bold text-slate-900">
-                  ${iQube.price.toFixed(2)}
+                  {priceDisplay.primary}
                 </p>
                 <p className="text-xs text-slate-500">
+                  {priceDisplay.secondary}
+                </p>
+                <p className="text-xs text-slate-400">
                   to {iQube.priceTo}
                 </p>
               </div>
@@ -142,9 +147,12 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, viewMode = 'grid' }
           </div>
           <div className="text-right">
             <p className="text-lg font-bold text-slate-900">
-              ${iQube.price.toFixed(2)}
+              {priceDisplay.primary}
             </p>
             <p className="text-xs text-slate-500">
+              {priceDisplay.secondary}
+            </p>
+            <p className="text-xs text-slate-400">
               to {iQube.priceTo}
             </p>
           </div>

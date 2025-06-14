@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
@@ -7,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Edit, Calendar, User, Shield, Wallet } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { formatPrice } from '@/utils/priceUtils';
 
 interface IQubeDetailModalProps {
   iQube: IQube | null;
@@ -25,6 +25,8 @@ const typeColors = {
 
 export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailModalProps) => {
   if (!iQube) return null;
+
+  const priceDisplay = formatPrice(iQube.price);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -49,7 +51,10 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
             </div>
             <div className="text-right">
               <p className="text-3xl font-bold text-slate-900">
-                ${iQube.price.toFixed(2)}
+                {priceDisplay.primary}
+              </p>
+              <p className="text-sm text-slate-600">
+                {priceDisplay.secondary}
               </p>
               <p className="text-sm text-slate-600">
                 {iQube.businessModel} to {iQube.priceTo}

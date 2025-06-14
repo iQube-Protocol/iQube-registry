@@ -20,7 +20,7 @@ const initialData: IQube[] = [
     accuracyScore: 5,
     riskScore: 6,
     businessModel: 'Buy',
-    price: 200.00,
+    price: 20, // 20 cents
     priceTo: 'Sell',
     durationOfRights: 'Forever',
     publicWalletKey: '0x742d35Cc6532C4532f5ccC1b1f94396aAbc4532e',
@@ -42,7 +42,7 @@ const initialData: IQube[] = [
     accuracyScore: 8,
     riskScore: 7,
     businessModel: 'License',
-    price: 1500.00,
+    price: 150, // 150 cents = $1.50
     priceTo: 'License',
     durationOfRights: 'Per Month',
     publicWalletKey: '0x8f4A9b2c1d5e8f3a6b9c2d5e8f3a6b9c2d5e8f3a',
@@ -64,7 +64,7 @@ const initialData: IQube[] = [
     accuracyScore: 6,
     riskScore: 3,
     businessModel: 'Subscribe',
-    price: 99.99,
+    price: 99, // 99 cents
     priceTo: 'Use',
     durationOfRights: 'Per Month',
     publicWalletKey: '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b',

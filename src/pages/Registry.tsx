@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -141,11 +140,14 @@ export const Registry = () => {
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
               <Input
-                placeholder="Search iQubes..."
+                placeholder="Ask me what kind of iQube you're looking for..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 h-12 text-base"
               />
+              <div className="absolute right-3 top-3 text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">
+                Agent
+              </div>
             </div>
           </div>
           
