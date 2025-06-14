@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -33,6 +32,17 @@ const typeAccentColors = {
   AgentQube: 'border-l-red-500'
 };
 
+const businessModelColors = {
+  Buy: 'bg-emerald-100 text-emerald-800',
+  Sell: 'bg-orange-100 text-orange-800',
+  Rent: 'bg-purple-100 text-purple-800',
+  Lease: 'bg-indigo-100 text-indigo-800',
+  Subscribe: 'bg-cyan-100 text-cyan-800',
+  Stake: 'bg-yellow-100 text-yellow-800',
+  License: 'bg-pink-100 text-pink-800',
+  Donate: 'bg-gray-100 text-gray-800'
+};
+
 export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMode = 'grid' }: IQubeCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
 
@@ -60,13 +70,16 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
                 </p>
               </div>
               
-              <div className="col-span-2">
+              <div className="col-span-2 flex flex-col space-y-1">
                 <Badge className={cn('text-xs w-fit', typeColors[iQube.iQubeType])}>
                   {iQube.iQubeType}
                 </Badge>
+                <Badge className={cn('text-xs w-fit', businessModelColors[iQube.businessModel])}>
+                  {iQube.businessModel}
+                </Badge>
               </div>
               
-              <div className="col-span-2 grid grid-cols-2 gap-2">
+              <div className="col-span-2 grid grid-cols-1 gap-2">
                 <ScoreIndicator 
                   label="Risk" 
                   value={iQube.riskScore} 
@@ -74,10 +87,10 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
                   scoreType="risk"
                 />
                 <ScoreIndicator 
-                  label="Trust" 
-                  value={iQube.trustScore || 0} 
+                  label="Accuracy" 
+                  value={iQube.accuracyScore} 
                   size="xs"
-                  scoreType="trust"
+                  scoreType="accuracy"
                 />
               </div>
               
@@ -149,9 +162,12 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
             <p className="text-sm text-slate-600 mb-2 h-5">
               by {iQube.iQubeCreator}
             </p>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
               <Badge className={cn('text-xs', typeColors[iQube.iQubeType])}>
                 {iQube.iQubeType}
+              </Badge>
+              <Badge className={cn('text-xs', businessModelColors[iQube.businessModel])}>
+                {iQube.businessModel}
               </Badge>
             </div>
           </div>
@@ -182,37 +198,10 @@ export const IQubeCard = ({ iQube, onView, onEdit, onDelete, onAddToCart, viewMo
             scoreType="risk"
           />
           <ScoreIndicator 
-            label="Sensitivity" 
-            value={iQube.sensitivityScore} 
-            size="sm"
-            scoreType="sensitivity"
-          />
-          <ScoreIndicator 
             label="Accuracy" 
             value={iQube.accuracyScore} 
             size="sm"
             scoreType="accuracy"
-          />
-          <ScoreIndicator 
-            label="Verifiability" 
-            value={iQube.verifiabilityScore} 
-            size="sm"
-            scoreType="verifiability"
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
-          <ScoreIndicator 
-            label="Trust Score" 
-            value={iQube.trustScore || 0} 
-            size="sm"
-            scoreType="trust"
-          />
-          <ScoreIndicator 
-            label="Reliability" 
-            value={iQube.reliabilityIndex || 0} 
-            size="sm"
-            scoreType="reliability"
           />
         </div>
         
