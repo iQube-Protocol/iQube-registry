@@ -1,5 +1,4 @@
-
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
 import { IQubeDetailModal } from '@/components/registry/IQubeDetailModal';
@@ -22,6 +21,14 @@ export const Registry = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'table'>('grid');
   const [selectedIQube, setSelectedIQube] = useState<IQube | null>(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
+
+  // Debug logging
+  useEffect(() => {
+    console.log('Registry loaded with iQubes:', iQubes.length);
+    console.log('All iQube names:', iQubes.map(iqube => iqube.iQubeName));
+    const knyteProfile = iQubes.find(iqube => iqube.id === '11' || iqube.iQubeName === 'KNYT Profile');
+    console.log('KNYT Profile in registry:', knyteProfile?.iQubeName || 'NOT FOUND');
+  }, [iQubes]);
 
   const filteredAndSortedIQubes = useMemo(() => {
     let filtered = iQubes.filter(iqube => {
@@ -75,6 +82,7 @@ export const Registry = () => {
       }
     });
 
+    console.log('Filtered iQubes:', filtered.length, 'Search:', searchTerm, 'Type:', selectedType);
     return filtered;
   }, [iQubes, searchTerm, selectedType, sortBy, sortOrder]);
 
