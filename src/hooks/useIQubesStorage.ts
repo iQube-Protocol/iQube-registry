@@ -3,7 +3,7 @@ import { IQube } from '@/types/iQube';
 import { initialIQubesData } from '@/data/initialIQubesData';
 import { calculateCompositeScores } from '@/utils/compositeScores';
 
-const STORAGE_KEY = 'iqubes-registry-v3'; // Changed version to force refresh
+const STORAGE_KEY = 'iqubes-registry-v4'; // Changed version to force refresh with templates
 
 export const useIQubesStorage = () => {
   const loadFromStorage = (): IQube[] => {
@@ -14,12 +14,11 @@ export const useIQubesStorage = () => {
         // Recalculate composite scores for existing data
         const processedData = storedData.map((iqube: IQube) => calculateCompositeScores(iqube));
         console.log('Loaded iQubes from storage:', processedData.length, 'items');
-        console.log('KNYT Profile found:', processedData.find(iqube => iqube.id === '11')?.iQubeName || 'NOT FOUND');
         
-        // Ensure KNYT Profile exists, if not, reset storage
-        const hasKnytProfile = processedData.some(iqube => iqube.id === '11' || iqube.iQubeName === 'KNYT Profile');
-        if (!hasKnytProfile) {
-          console.log('KNYT Profile missing from storage, resetting to initial data');
+        // Check if we have templates - if not, reset to initial data
+        const templateCount = processedData.filter(iqube => iqube.iQubeInstanceType === 'template').length;
+        if (templateCount === 0) {
+          console.log('No templates found in storage, resetting to initial data');
           saveToStorage(initialIQubesData);
           return initialIQubesData;
         }
@@ -32,7 +31,7 @@ export const useIQubesStorage = () => {
       }
     } else {
       console.log('No stored data found, using initial data:', initialIQubesData.length, 'items');
-      console.log('KNYT Profile in initial data:', initialIQubesData.find(iqube => iqube.id === '11')?.iQubeName || 'NOT FOUND');
+      console.log('Templates in initial data:', initialIQubesData.filter(iqube => iqube.iQubeInstanceType === 'template').length);
       saveToStorage(initialIQubesData);
       return initialIQubesData;
     }
@@ -41,7 +40,8 @@ export const useIQubesStorage = () => {
   const saveToStorage = (data: IQube[]) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     console.log('Saved to storage:', data.length, 'items');
-    console.log('KNYT Profile in saved data:', data.find(iqube => iqube.id === '11')?.iQubeName || 'NOT FOUND');
+    console.log('Templates saved:', data.filter(iqube => iqube.iQubeInstanceType === 'template').length);
+    console.log('Instances saved:', data.filter(iqube => iqube.iQubeInstanceType === 'instance').length);
   };
 
   return {
