@@ -24,10 +24,71 @@ const typeColors = {
   AgentQube: 'bg-red-100 text-red-800'
 };
 
+// Mock blakQube data structure - in real app this would come from the iQube object
+const getBlakQubeData = (iQube: IQube) => [
+  {
+    key: 'Name',
+    value: iQube.iQubeName,
+    source: 'facebook'
+  },
+  {
+    key: 'Creator',
+    value: iQube.iQubeCreator,
+    source: 'linkedin'
+  },
+  {
+    key: 'Description',
+    value: iQube.iQubeDescription,
+    source: 'facebook'
+  },
+  {
+    key: 'Schema Type',
+    value: iQube.blakQubeSchema,
+    source: 'linkedin'
+  },
+  {
+    key: 'Business Model',
+    value: iQube.businessModel,
+    source: 'facebook'
+  },
+  {
+    key: 'Owner Type',
+    value: iQube.ownerType,
+    source: 'linkedin'
+  },
+  {
+    key: 'Identifiability',
+    value: iQube.ownerIdentifiability,
+    source: 'facebook'
+  },
+  {
+    key: 'Rights Duration',
+    value: iQube.durationOfRights,
+    source: 'linkedin'
+  },
+  {
+    key: 'Wallet Key',
+    value: iQube.publicWalletKey || 'Not provided',
+    source: 'facebook'
+  }
+];
+
+const getSourceIcon = (source: string) => {
+  switch (source) {
+    case 'facebook':
+      return '🔵'; // Blue circle representing Facebook
+    case 'linkedin':
+      return '🔷'; // Blue diamond representing LinkedIn
+    default:
+      return '⚫'; // Default black circle
+  }
+};
+
 export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailModalProps) => {
   if (!iQube) return null;
 
   const priceDisplay = formatPrice(iQube.price);
+  const blakQubeData = getBlakQubeData(iQube);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -57,135 +118,84 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
               <p className="text-sm text-slate-600">
                 {iQube.businessModel} per {iQube.priceTo.toLowerCase()}
               </p>
-              <p className="text-xs text-slate-500">
-                {iQube.durationOfRights}
-              </p>
             </div>
           </div>
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Creator Info */}
+          {/* MetaQube Section - Condensed */}
           <div className="bg-slate-50 rounded-lg p-4">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
-                <User className="w-5 h-5 text-white" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
+                  <User className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-900">MetaQube Profile</h3>
+                  <p className="text-sm text-slate-600">Created by {iQube.iQubeCreator}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Created by</h3>
-                <p className="text-slate-600">{iQube.iQubeCreator}</p>
+              <div className="text-xs text-slate-500">
+                {new Date(iQube.transactionDate).toLocaleDateString()}
               </div>
             </div>
-          </div>
 
-          {/* Description */}
-          <div>
-            <h3 className="font-semibold text-slate-900 mb-2">Description</h3>
-            <p className="text-slate-700 leading-relaxed">{iQube.iQubeDescription}</p>
-          </div>
-
-          <Separator />
-
-          {/* Core Scores */}
-          <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Core Performance Metrics</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Core Scores Row */}
+            <div className="grid grid-cols-4 gap-4">
               <ScoreIndicator 
-                label="Sensitivity Score" 
-                value={iQube.sensitivityScore} 
-                size="lg"
-                scoreType="sensitivity"
-              />
-              <ScoreIndicator 
-                label="Risk Score" 
+                label="Risk" 
                 value={iQube.riskScore} 
-                size="lg"
+                size="sm"
                 scoreType="risk"
               />
               <ScoreIndicator 
-                label="Accuracy Score" 
+                label="Accuracy" 
                 value={iQube.accuracyScore} 
-                size="lg"
+                size="sm"
                 scoreType="accuracy"
               />
               <ScoreIndicator 
-                label="Verifiability Score" 
+                label="Verifiability" 
                 value={iQube.verifiabilityScore} 
-                size="lg"
+                size="sm"
                 scoreType="verifiability"
               />
-            </div>
-          </div>
-
-          {/* Composite Scores */}
-          <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Composite Scores</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-slate-50 rounded-lg p-4">
-                <ScoreIndicator 
-                  label="Trust Score" 
-                  value={iQube.trustScore || 0} 
-                  size="lg"
-                  scoreType="trust"
-                />
-                <p className="text-xs text-slate-500 mt-2">
-                  Calculated as (Accuracy + Verifiability) / 2
-                </p>
-              </div>
-              <div className="bg-slate-50 rounded-lg p-4">
-                <ScoreIndicator 
-                  label="Reliability Index" 
-                  value={iQube.reliabilityIndex || 0} 
-                  size="lg"
-                  scoreType="reliability"
-                />
-                <p className="text-xs text-slate-500 mt-2">
-                  Calculated as (Accuracy + Verifiability + (10 - Risk)) / 3
-                </p>
-              </div>
+              <ScoreIndicator 
+                label="Sensitivity" 
+                value={iQube.sensitivityScore} 
+                size="sm"
+                scoreType="sensitivity"
+              />
             </div>
           </div>
 
           <Separator />
 
-          {/* Technical Details */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold text-slate-900 mb-3">Technical Information</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">BlakQube Schema:</span>
-                  <span className="font-medium">{iQube.blakQubeSchema}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Business Model:</span>
-                  <span className="font-medium">{iQube.businessModel}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Rights Duration:</span>
-                  <span className="font-medium">{iQube.durationOfRights}</span>
-                </div>
-              </div>
+          {/* BlakQube Data Section */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold text-slate-900">BlakQube Data</h3>
+              <div className="text-sm text-slate-500 uppercase tracking-wide">SOURCE</div>
             </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900 mb-3">Transaction Details</h3>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Calendar className="w-4 h-4 text-slate-500" />
-                  <span className="text-slate-600">Transaction Date:</span>
-                  <span className="font-medium">
-                    {new Date(iQube.transactionDate).toLocaleDateString()}
-                  </span>
+            
+            <div className="space-y-3">
+              {blakQubeData.map((item, index) => (
+                <div key={index} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-b-0">
+                  <div className="flex-1">
+                    <div className="text-sm text-slate-600 mb-1">{item.key}</div>
+                    <div className="font-medium text-slate-900 break-words">
+                      {item.value}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0 ml-4">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500">
+                      <span className="text-white text-lg">
+                        {getSourceIcon(item.source)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Wallet className="w-4 h-4 text-slate-500" />
-                  <span className="text-slate-600">Wallet:</span>
-                  <span className="font-mono text-xs bg-slate-100 px-2 py-1 rounded">
-                    {iQube.publicWalletKey || 'Not provided'}
-                  </span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
