@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 import { calculateCompositeScores } from '@/utils/compositeScores';
 
@@ -7,18 +6,18 @@ export const initialIQubesData: IQube[] = [
     id: '1',
     iQubeName: 'Qrypto Profile',
     iQubeCreator: 'Aigent Z',
-    iQubeDescription: 'Comprehensive digital identity profile containing verified personal information, crypto wallet addresses, and social media handles. Perfect for Web3 applications requiring user verification, DeFi protocols needing KYC data, or social platforms building trusted communities.',
+    iQubeDescription: 'iQube for capturing details of a persons crypto and web 3 profile',
     ownerType: 'Individual',
     iQubeType: 'DataQube',
-    ownerIdentifiability: 'Semi-Anonymous',
+    ownerIdentifiability: 'Identifiable',
     transactionDate: '2024-12-19',
     sensitivityScore: 6,
-    verifiabilityScore: 8,
+    verifiabilityScore: 7,
     accuracyScore: 7,
-    riskScore: 4,
+    riskScore: 6,
     businessModel: 'Buy',
-    price: 20,
-    priceTo: 'Purchase',
+    price: 200,
+    priceTo: 'Mint',
     durationOfRights: 'Forever',
     publicWalletKey: '0x742d35Cc6532C4532f5ccC1b1f94396aAbc4532e',
     blakQubeSchema: 'Structured',
