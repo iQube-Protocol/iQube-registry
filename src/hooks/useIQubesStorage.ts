@@ -2,7 +2,7 @@ import { IQube } from '@/types/iQube';
 import { initialIQubesData } from '@/data/initialIQubesData';
 import { calculateCompositeScores } from '@/utils/compositeScores';
 
-const STORAGE_KEY = 'iqubes-registry-v5'; // Changed version to force refresh with corrected template IDs
+const STORAGE_KEY = 'iqubes-registry-v6'; // Changed version to force refresh with updated Qrypto Profile data
 
 export const useIQubesStorage = () => {
   const loadFromStorage = (): IQube[] => {

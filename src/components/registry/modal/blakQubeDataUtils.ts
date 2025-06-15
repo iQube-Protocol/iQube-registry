@@ -1,4 +1,5 @@
 
+
 import { IQube } from '@/types/iQube';
 
 export interface BlakQubeDataItem {
@@ -8,7 +9,7 @@ export interface BlakQubeDataItem {
 }
 
 export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
-  // Qrypto Profile structure - the reference implementation
+  // Qrypto Profile structure - updated with correct fields
   if (iQube.id === '1' || iQube.iQubeName === 'Qrypto Profile') {
     return [
       { key: 'First-Name', value: '', source: 'linkedin' },
@@ -236,3 +237,4 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
     { key: 'Public Wallet Key', value: iQube.publicWalletKey, source: 'custom' }
   ];
 };
+
