@@ -6,6 +6,7 @@ import { formatPrice } from '@/utils/priceUtils';
 import { typeAccentColors } from '../constants/cardStyles';
 import { IQubeBadges } from './IQubeBadges';
 import { IQubeActionButtons } from './IQubeActionButtons';
+import { IQubeInstanceBadge } from './IQubeInstanceBadge';
 
 interface IQubeListCardProps {
   iQube: IQube;
@@ -13,6 +14,7 @@ interface IQubeListCardProps {
   onEdit: (iQube: IQube) => void;
   onDelete: (id: string) => void;
   onAddToCart?: (iQube: IQube) => void;
+  onViewInstances?: (templateId: string) => void;
 }
 
 export const IQubeListCard = ({
@@ -20,7 +22,8 @@ export const IQubeListCard = ({
   onView,
   onEdit,
   onDelete,
-  onAddToCart
+  onAddToCart,
+  onViewInstances
 }: IQubeListCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
 
@@ -33,9 +36,10 @@ export const IQubeListCard = ({
               <h3 className="font-semibold text-slate-900 mb-1 line-clamp-2 min-h-[2.5rem]">
                 {iQube.iQubeName}
               </h3>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-slate-600 mb-2">
                 by {iQube.iQubeCreator}
               </p>
+              <IQubeInstanceBadge iQube={iQube} onViewInstances={onViewInstances} />
             </div>
             
             <div className="col-span-4">

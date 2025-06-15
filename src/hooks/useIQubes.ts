@@ -12,9 +12,23 @@ export const useIQubes = () => {
   const [loading, setLoading] = useState(true);
   const { loadFromStorage, saveToStorage } = useIQubesStorage();
 
+  // Helper function to update instance counts for templates
+  const updateInstanceCounts = (iQubesList: IQube[]): IQube[] => {
+    return iQubesList.map(iqube => {
+      if (iqube.iQubeInstanceType === 'template') {
+        const instanceCount = iQubesList.filter(
+          item => item.iQubeInstanceType === 'instance' && item.templateId === iqube.id
+        ).length;
+        return { ...iqube, instanceCount };
+      }
+      return iqube;
+    });
+  };
+
   useEffect(() => {
     const data = loadFromStorage();
-    setIQubes(data);
+    const dataWithCounts = updateInstanceCounts(data);
+    setIQubes(dataWithCounts);
     setLoading(false);
   }, []);
 
@@ -23,9 +37,10 @@ export const useIQubes = () => {
       ...iQubeData,
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      instanceCount: iQubeData.iQubeInstanceType === 'template' ? 0 : undefined
     });
-    const updated = [...iQubes, newIQubeWithCompositeScores];
+    const updated = updateInstanceCounts([...iQubes, newIQubeWithCompositeScores]);
     setIQubes(updated);
     saveToStorage(updated);
     return newIQubeWithCompositeScores;
@@ -37,19 +52,28 @@ export const useIQubes = () => {
       throw new Error('Template not found');
     }
 
+    const existingInstances = iQubes.filter(
+      iq => iq.iQubeInstanceType === 'instance' && iq.templateId === templateId
+    );
+    const instanceNumber = existingInstances.length + 1;
+
     const newInstance: IQube = {
       ...template,
       id: Date.now().toString(),
+      iQubeName: `${template.iQubeName} Instance #${instanceNumber}`,
       iQubeInstanceType: 'instance',
       templateId: templateId,
+      isEncrypted: true,
+      encryptionStatus: 'minted', // Protocol has encrypted the data
+      hasDecryptionKey: true, // By default, user who mints has access
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
 
-    const updated = [...iQubes, newInstance];
+    const updated = updateInstanceCounts([...iQubes, newInstance]);
     setIQubes(updated);
     saveToStorage(updated);
-    console.log('Minted instance with BlakQube data:', blakQubeData);
+    console.log('Minted instance with BlakQube data (encrypted by protocol):', blakQubeData);
     return newInstance;
   };
 
@@ -61,27 +85,40 @@ export const useIQubes = () => {
       }
       return iqube;
     });
-    setIQubes(updated);
-    saveToStorage(updated);
+    const updatedWithCounts = updateInstanceCounts(updated);
+    setIQubes(updatedWithCounts);
+    saveToStorage(updatedWithCounts);
   };
 
   const updateIQubeBlakQubeData = (id: string, blakQubeData: BlakQubeDataItem[]) => {
-    // For instances, update only the BlakQube data
+    // For instances, update only the BlakQube data (will be encrypted by protocol)
     const updated = iQubes.map(iqube => {
       if (iqube.id === id) {
-        return { ...iqube, updatedAt: new Date().toISOString() };
+        return { 
+          ...iqube, 
+          updatedAt: new Date().toISOString(),
+          encryptionStatus: 'minted' as const // Data re-encrypted by protocol
+        };
       }
       return iqube;
     });
-    setIQubes(updated);
-    saveToStorage(updated);
-    console.log('Updated BlakQube data for instance:', id, blakQubeData);
+    const updatedWithCounts = updateInstanceCounts(updated);
+    setIQubes(updatedWithCounts);
+    saveToStorage(updatedWithCounts);
+    console.log('Updated BlakQube data for instance (encrypted by protocol):', id, blakQubeData);
   };
 
   const deleteIQube = (id: string) => {
     const updated = iQubes.filter(iqube => iqube.id !== id);
-    setIQubes(updated);
-    saveToStorage(updated);
+    const updatedWithCounts = updateInstanceCounts(updated);
+    setIQubes(updatedWithCounts);
+    saveToStorage(updatedWithCounts);
+  };
+
+  const getTemplateInstances = (templateId: string): IQube[] => {
+    return iQubes.filter(
+      iqube => iqube.iQubeInstanceType === 'instance' && iqube.templateId === templateId
+    );
   };
 
   const getAnalytics = (): AnalyticsData => {
@@ -96,6 +133,7 @@ export const useIQubes = () => {
     updateIQube,
     updateIQubeBlakQubeData,
     deleteIQube,
+    getTemplateInstances,
     getAnalytics
   };
 };

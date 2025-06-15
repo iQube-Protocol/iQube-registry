@@ -21,6 +21,11 @@ export interface IQube {
   blakQubeSchema: 'Structured' | 'Unstructured' | 'Access Keys';
   iQubeInstanceType: 'template' | 'instance';
   templateId?: string; // For instances, reference to the original template
+  // New fields for encryption and instance management
+  instanceCount?: number; // For templates, count of minted instances
+  isEncrypted?: boolean; // For instances, whether data is encrypted by protocol
+  encryptionStatus?: 'pending' | 'minted' | 'decrypted'; // For instances, protocol encryption state
+  hasDecryptionKey?: boolean; // For instances, whether user has access to decrypt
   createdAt: string;
   updatedAt: string;
   // Calculated composite scores
@@ -28,4 +33,4 @@ export interface IQube {
   reliabilityIndex?: number;
 }
 
-export interface IQubeFormData extends Omit<IQube, 'id' | 'createdAt' | 'updatedAt' | 'trustScore' | 'reliabilityIndex'> {}
+export interface IQubeFormData extends Omit<IQube, 'id' | 'createdAt' | 'updatedAt' | 'trustScore' | 'reliabilityIndex' | 'instanceCount' | 'isEncrypted' | 'encryptionStatus' | 'hasDecryptionKey'> {}

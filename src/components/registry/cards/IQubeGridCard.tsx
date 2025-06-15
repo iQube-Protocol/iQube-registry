@@ -1,25 +1,33 @@
+
 import { IQube } from '@/types/iQube';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { formatPrice } from '@/utils/priceUtils';
 import { IQubeBadges } from './IQubeBadges';
 import { IQubeActionButtons } from './IQubeActionButtons';
+import { IQubeInstanceBadge } from './IQubeInstanceBadge';
+
 interface IQubeGridCardProps {
   iQube: IQube;
   onView: (iQube: IQube) => void;
   onEdit: (iQube: IQube) => void;
   onDelete: (id: string) => void;
   onAddToCart?: (iQube: IQube) => void;
+  onViewInstances?: (templateId: string) => void;
 }
+
 export const IQubeGridCard = ({
   iQube,
   onView,
   onEdit,
   onDelete,
-  onAddToCart
+  onAddToCart,
+  onViewInstances
 }: IQubeGridCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
-  return <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
+
+  return (
+    <Card className="hover:shadow-lg transition-shadow duration-200 border-slate-200 h-full flex flex-col">
       <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -29,7 +37,10 @@ export const IQubeGridCard = ({
             <p className="text-sm text-slate-600 mb-2 h-5">
               by {iQube.iQubeCreator}
             </p>
-            <IQubeBadges iQube={iQube} />
+            <div className="space-y-2">
+              <IQubeBadges iQube={iQube} />
+              <IQubeInstanceBadge iQube={iQube} onViewInstances={onViewInstances} />
+            </div>
           </div>
           <div className="text-right flex-shrink-0 min-w-0 max-w-[120px]">
             <p className="font-bold text-slate-900 text-base leading-tight break-words">
@@ -58,10 +69,16 @@ export const IQubeGridCard = ({
         
         <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-auto min-w-0">
           <div className="flex-1 min-w-0 mr-2">
-            <IQubeActionButtons iQube={iQube} onView={onView} onEdit={onEdit} onDelete={onDelete} onAddToCart={onAddToCart} />
+            <IQubeActionButtons 
+              iQube={iQube} 
+              onView={onView} 
+              onEdit={onEdit} 
+              onDelete={onDelete} 
+              onAddToCart={onAddToCart} 
+            />
           </div>
-          
         </div>
       </CardContent>
-    </Card>;
+    </Card>
+  );
 };
