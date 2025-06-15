@@ -1,7 +1,9 @@
+
 import { useState, useMemo, useEffect } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
 import { IQubeDetailModal } from '@/components/registry/IQubeDetailModal';
+import { InstancesModal } from '@/components/registry/modal/InstancesModal';
 import { RegistryHeader } from '@/components/registry/RegistryHeader';
 import { FilterSection } from '@/components/registry/FilterSection';
 import { IQubeGrid } from '@/components/registry/IQubeGrid';
@@ -21,6 +23,8 @@ export const Registry = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'table'>('grid');
   const [selectedIQube, setSelectedIQube] = useState<IQube | null>(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<IQube | null>(null);
+  const [instancesModalOpen, setInstancesModalOpen] = useState(false);
 
   // Debug logging
   useEffect(() => {
@@ -30,8 +34,13 @@ export const Registry = () => {
     console.log('KNYT Profile in registry:', knyteProfile?.iQubeName || 'NOT FOUND');
   }, [iQubes]);
 
+  // Only show templates in the main registry view
+  const templatesOnly = useMemo(() => {
+    return iQubes.filter(iqube => iqube.iQubeInstanceType === 'template');
+  }, [iQubes]);
+
   const filteredAndSortedIQubes = useMemo(() => {
-    let filtered = iQubes.filter(iqube => {
+    let filtered = templatesOnly.filter(iqube => {
       const matchesSearch = 
         iqube.iQubeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         iqube.iQubeCreator.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -82,9 +91,9 @@ export const Registry = () => {
       }
     });
 
-    console.log('Filtered iQubes:', filtered.length, 'Search:', searchTerm, 'Type:', selectedType);
+    console.log('Filtered templates:', filtered.length, 'Search:', searchTerm, 'Type:', selectedType);
     return filtered;
-  }, [iQubes, searchTerm, selectedType, sortBy, sortOrder]);
+  }, [templatesOnly, searchTerm, selectedType, sortBy, sortOrder]);
 
   const handleView = (iqube: IQube) => {
     setSelectedIQube(iqube);
@@ -108,6 +117,34 @@ export const Registry = () => {
       title: "Added to Cart",
       description: `${iqube.iQubeName} has been added to your cart.`,
     });
+  };
+
+  const handleViewInstances = (templateId: string) => {
+    const template = iQubes.find(iq => iq.id === templateId);
+    if (template) {
+      setSelectedTemplate(template);
+      setInstancesModalOpen(true);
+    }
+  };
+
+  const handleViewInstance = (instance: IQube) => {
+    setInstancesModalOpen(false);
+    setSelectedIQube(instance);
+    setDetailModalOpen(true);
+  };
+
+  const handleDecryptInstance = (instanceId: string) => {
+    // TODO: Implement decryption logic
+    toast({
+      title: "Decryption Requested",
+      description: "Instance decryption is being processed...",
+    });
+  };
+
+  const getTemplateInstances = (templateId: string): IQube[] => {
+    return iQubes.filter(
+      iqube => iqube.iQubeInstanceType === 'instance' && iqube.templateId === templateId
+    );
   };
 
   if (loading) {
@@ -146,7 +183,7 @@ export const Registry = () => {
           />
           <div className="mb-4">
             <p className="text-sm text-slate-600">
-              Showing {filteredAndSortedIQubes.length} of {iQubes.length} iQubes
+              Showing {filteredAndSortedIQubes.length} of {templatesOnly.length} templates
             </p>
           </div>
         </div>
@@ -164,6 +201,7 @@ export const Registry = () => {
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 onAddToCart={handleAddToCart}
+                onViewInstances={handleViewInstances}
               />
             </TooltipProvider>
           </div>
@@ -181,6 +219,18 @@ export const Registry = () => {
           setDetailModalOpen(false);
           handleEdit(iqube);
         }}
+      />
+
+      <InstancesModal
+        template={selectedTemplate}
+        instances={selectedTemplate ? getTemplateInstances(selectedTemplate.id) : []}
+        open={instancesModalOpen}
+        onClose={() => {
+          setInstancesModalOpen(false);
+          setSelectedTemplate(null);
+        }}
+        onViewInstance={handleViewInstance}
+        onDecryptInstance={handleDecryptInstance}
       />
     </div>
   );
