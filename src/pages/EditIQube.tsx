@@ -10,9 +10,21 @@ import { toast } from '@/hooks/use-toast';
 export const EditIQube = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { iQubes, updateIQube, updateIQubeBlakQubeData } = useIQubes();
+  const { iQubes, loading, updateIQube, updateIQubeBlakQubeData } = useIQubes();
 
   const iQube = iQubes.find(iq => iq.id === id);
+
+  // Show loading state while data is being loaded
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!iQube) {
     return (

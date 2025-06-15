@@ -95,6 +95,7 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
           durationOfRights: value.durationOfRights || 'Forever',
           publicWalletKey: value.publicWalletKey || '',
           blakQubeSchema: value.blakQubeSchema || 'Structured',
+          iQubeInstanceType: value.iQubeInstanceType || 'template',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         });
