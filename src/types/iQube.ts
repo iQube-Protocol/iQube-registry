@@ -15,7 +15,7 @@ export interface IQube {
   riskScore: number;
   businessModel: 'Buy' | 'Sell' | 'Rent' | 'Lease' | 'Subscribe' | 'Stake' | 'License' | 'Donate';
   price: number;
-  priceTo: 'Use' | 'Mint' | 'Purchase' | 'Sell' | 'Lease' | 'Rent' | 'Stake' | 'License';
+  priceTo: 'Use' | 'Mint' | 'Purchase' | 'Sell' | 'Lease' | 'Rent' | 'Stake' | 'License' | 'Donate';
   durationOfRights: 'Forever' | 'Per Use' | 'Per Minute' | 'Per Hour' | 'Per Day' | 'Per Week' | 'Per Month' | 'Per Year';
   publicWalletKey: string;
   blakQubeSchema: 'Structured' | 'Unstructured' | 'Access Keys';
