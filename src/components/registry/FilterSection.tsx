@@ -32,8 +32,8 @@ export const FilterSection = ({
 }: FilterSectionProps) => {
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <div className="md:col-span-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-2">
           <div className="relative">
             <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
             <Input
@@ -47,25 +47,23 @@ export const FilterSection = ({
             </div>
           </div>
         </div>
-        
-        <div className="md:col-span-2">
-          <Select value={selectedType} onValueChange={onTypeChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="All Types" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="DataQube">DataQube</SelectItem>
-              <SelectItem value="ContentQube">ContentQube</SelectItem>
-              <SelectItem value="ToolQube">ToolQube</SelectItem>
-              <SelectItem value="ModelQube">ModelQube</SelectItem>
-              <SelectItem value="AgentQube">AgentQube</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
 
-        <div className="md:col-span-4 overflow-x-auto">
+        <div className="md:col-span-1 overflow-x-auto">
           <div className="flex items-center space-x-2 min-w-fit pb-2 md:pb-0">
+            <Select value={selectedType} onValueChange={onTypeChange}>
+              <SelectTrigger className="min-w-[120px]">
+                <SelectValue placeholder="All Types" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="DataQube">DataQube</SelectItem>
+                <SelectItem value="ContentQube">ContentQube</SelectItem>
+                <SelectItem value="ToolQube">ToolQube</SelectItem>
+                <SelectItem value="ModelQube">ModelQube</SelectItem>
+                <SelectItem value="AgentQube">AgentQube</SelectItem>
+              </SelectContent>
+            </Select>
+            
             <Select value={sortBy} onValueChange={onSortByChange}>
               <SelectTrigger className="flex-1 min-w-[120px]">
                 <SelectValue placeholder="Sort by" />
