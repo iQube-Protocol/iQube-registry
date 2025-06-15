@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,10 +53,20 @@ const templates: IQubeTemplate[] = [
     fieldCount: 22,
     baseData: {
       iQubeName: 'MonDAI Profile',
-      iQubeDescription: 'AI-focused profile template',
+      iQubeCreator: 'CryptoMondays',
+      iQubeDescription: 'iQube for networking and meeting pople in the Web3 space and for finding web3 products and services tailored to the user.',
       ownerType: 'Individual',
       iQubeType: 'DataQube',
-      ownerIdentifiability: 'Semi-Identifiable',
+      ownerIdentifiability: 'Identifiable',
+      sensitivityScore: 6,
+      verifiabilityScore: 7,
+      accuracyScore: 7,
+      riskScore: 6,
+      businessModel: 'Buy',
+      price: 200,
+      priceTo: 'Mint',
+      durationOfRights: 'Forever',
+      publicWalletKey: '',
       blakQubeSchema: 'Structured'
     }
   },
@@ -67,13 +76,23 @@ const templates: IQubeTemplate[] = [
     description: 'NFT and digital art collector profile with marketplace integration',
     type: 'DataQube',
     icon: <Database className="w-6 h-6" />,
-    fieldCount: 32,
+    fieldCount: 35,
     baseData: {
       iQubeName: 'KNYT Profile',
-      iQubeDescription: 'NFT and digital art profile template',
+      iQubeCreator: 'metaKnyts',
+      iQubeDescription: 'KNYT Profile for digital collectibles and NFT community engagement',
       ownerType: 'Individual',
       iQubeType: 'DataQube',
       ownerIdentifiability: 'Identifiable',
+      sensitivityScore: 7,
+      verifiabilityScore: 8,
+      accuracyScore: 8,
+      riskScore: 7,
+      businessModel: 'Buy',
+      price: 200,
+      priceTo: 'Mint',
+      durationOfRights: 'Forever',
+      publicWalletKey: '',
       blakQubeSchema: 'Structured'
     }
   }
