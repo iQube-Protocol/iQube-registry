@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -47,6 +46,7 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
   const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
   const [showTemplateSelector, setShowTemplateSelector] = useState(!isEditing && !initialData);
   const [blakQubeData, setBlakQubeData] = useState<BlakQubeDataItem[]>([]);
+  const [currentIQubeData, setCurrentIQubeData] = useState<IQube | null>(existingIQube || null);
 
   const form = useForm<IQubeFormData>({
     resolver: zodResolver(iQubeSchema),
@@ -61,6 +61,40 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
       ...initialData
     }
   });
+
+  // Update currentIQubeData when form values change to provide real-time BlakQube preview
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      if (isEditing && existingIQube) {
+        setCurrentIQubeData({ ...existingIQube, ...value });
+      } else if (value.iQubeName) {
+        // Create a mock IQube object for BlakQube preview
+        setCurrentIQubeData({
+          id: 'preview',
+          iQubeName: value.iQubeName || '',
+          iQubeCreator: value.iQubeCreator || '',
+          iQubeDescription: value.iQubeDescription || '',
+          ownerType: value.ownerType || 'Individual',
+          iQubeType: value.iQubeType || 'DataQube',
+          ownerIdentifiability: value.ownerIdentifiability || 'Anonymous',
+          transactionDate: value.transactionDate || new Date().toISOString().split('T')[0],
+          sensitivityScore: value.sensitivityScore || 5,
+          verifiabilityScore: value.verifiabilityScore || 5,
+          accuracyScore: value.accuracyScore || 5,
+          riskScore: value.riskScore || 5,
+          businessModel: value.businessModel || 'Buy',
+          price: value.price || 0,
+          priceTo: value.priceTo || 'Use',
+          durationOfRights: value.durationOfRights || 'Forever',
+          publicWalletKey: value.publicWalletKey || '',
+          blakQubeSchema: value.blakQubeSchema || 'Structured',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form, isEditing, existingIQube]);
 
   useEffect(() => {
     if (selectedTemplate) {
@@ -446,11 +480,19 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
 
           <Separator />
 
-          {(selectedTemplate || isEditing) && existingIQube && (
-            <BlakQubeDataForm
-              iQube={existingIQube}
-              onDataChange={setBlakQubeData}
-            />
+          {/* Show BlakQube Data Form for all iQubes that have sufficient data */}
+          {currentIQubeData && currentIQubeData.iQubeName && (
+            <Card>
+              <CardHeader>
+                <CardTitle>BlakQube Data Configuration</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <BlakQubeDataForm
+                  iQube={currentIQubeData}
+                  onDataChange={setBlakQubeData}
+                />
+              </CardContent>
+            </Card>
           )}
 
           <div className="flex justify-end space-x-3">

@@ -36,8 +36,8 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
     ];
   }
   
-  // MonDAI Profile structure
-  if (iQube.id === '10' || iQube.iQubeName === 'MonDAI Profile') {
+  // MonDAI Profile structure (IDs 9 and 10)
+  if ((iQube.id === '9' || iQube.id === '10') || iQube.iQubeName === 'MonDAI Profile') {
     return [
       { key: 'First-Name', value: '', source: 'linkedin' },
       { key: 'Last-Name', value: '', source: 'linkedin' },
@@ -107,7 +107,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
     ];
   }
   
-  // Default fallback for other iQubes
+  // Default fallback for other iQubes with basic editable fields
   return [
     { key: 'Name', value: iQube.iQubeName, source: 'custom' },
     { key: 'Creator', value: iQube.iQubeCreator, source: 'custom' },
@@ -116,6 +116,9 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
     { key: 'Owner Type', value: iQube.ownerType, source: 'custom' },
     { key: 'Identifiability', value: iQube.ownerIdentifiability, source: 'custom' },
     { key: 'Rights Duration', value: iQube.durationOfRights, source: 'custom' },
-    { key: 'Schema Type', value: iQube.blakQubeSchema, source: 'custom' }
+    { key: 'Schema Type', value: iQube.blakQubeSchema, source: 'custom' },
+    { key: 'Description', value: iQube.iQubeDescription, source: 'custom' },
+    { key: 'Price', value: iQube.price.toString(), source: 'custom' },
+    { key: 'Public Wallet Key', value: iQube.publicWalletKey, source: 'custom' }
   ];
 };
