@@ -1,9 +1,8 @@
-
 import { IQube } from '@/types/iQube';
 import { initialIQubesData } from '@/data/initialIQubesData';
 import { calculateCompositeScores } from '@/utils/compositeScores';
 
-const STORAGE_KEY = 'iqubes-registry-v4'; // Changed version to force refresh with templates
+const STORAGE_KEY = 'iqubes-registry-v5'; // Changed version to force refresh with corrected template IDs
 
 export const useIQubesStorage = () => {
   const loadFromStorage = (): IQube[] => {

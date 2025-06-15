@@ -1,8 +1,9 @@
 
+
 import { IQube } from '@/types/iQube';
 
 export const instancesData: IQube[] = [
-  // Instance 1 of Qrypto Profile DataQube (ID: 2)
+  // Instance 1 of Qrypto Profile DataQube (ID: 1)
   {
     id: "101",
     iQubeName: "Qrypto Profile DataQube Instance #1",
@@ -24,7 +25,7 @@ export const instancesData: IQube[] = [
     publicWalletKey: "0x742d35Cc6aB4502532A3a513C65fE78B88c12345",
     blakQubeSchema: "Structured",
     iQubeInstanceType: "instance",
-    templateId: "2",
+    templateId: "1",
     isEncrypted: true,
     encryptionStatus: "minted",
     hasDecryptionKey: true,
@@ -33,7 +34,7 @@ export const instancesData: IQube[] = [
     trustScore: 7.5,
     reliabilityIndex: 8.2
   },
-  // Instance 2 of Qrypto Profile DataQube (ID: 2)
+  // Instance 2 of Qrypto Profile DataQube (ID: 1)
   {
     id: "102",
     iQubeName: "Qrypto Profile DataQube Instance #2",
@@ -55,7 +56,7 @@ export const instancesData: IQube[] = [
     publicWalletKey: "0x853f46Ed7bC5613647B4f8E91d7e89A99f456789",
     blakQubeSchema: "Structured",
     iQubeInstanceType: "instance",
-    templateId: "2",
+    templateId: "1",
     isEncrypted: true,
     encryptionStatus: "minted",
     hasDecryptionKey: false, // This instance is encrypted and user doesn't have access
@@ -64,7 +65,7 @@ export const instancesData: IQube[] = [
     trustScore: 7.5,
     reliabilityIndex: 8.2
   },
-  // Instance 3 of Qrypto Profile DataQube (ID: 2)
+  // Instance 3 of Qrypto Profile DataQube (ID: 1)
   {
     id: "103",
     iQubeName: "Qrypto Profile DataQube Instance #3",
@@ -86,7 +87,7 @@ export const instancesData: IQube[] = [
     publicWalletKey: "0x964g57Fe8cD6724758C5g9F92e8f8bA0g567890",
     blakQubeSchema: "Structured",
     iQubeInstanceType: "instance",
-    templateId: "2",
+    templateId: "1",
     isEncrypted: true,
     encryptionStatus: "minted",
     hasDecryptionKey: true,
@@ -127,3 +128,4 @@ export const instancesData: IQube[] = [
     reliabilityIndex: 9.1
   }
 ];
+
