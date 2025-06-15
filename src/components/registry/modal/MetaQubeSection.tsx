@@ -3,7 +3,7 @@ import { IQube } from '@/types/iQube';
 import { Badge } from '@/components/ui/badge';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { Button } from '@/components/ui/button';
-import { User, Wallet, Copy } from 'lucide-react';
+import { User, Wallet, Copy, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 
@@ -67,6 +67,15 @@ export const MetaQubeSection = ({ iQube }: MetaQubeSectionProps) => {
         </Badge>
         <Badge variant="secondary" className="text-sm">
           {iQube.ownerIdentifiability}
+        </Badge>
+      </div>
+
+      {/* Data Subject Identifiability */}
+      <div className="flex items-center space-x-2 mb-4">
+        <Shield className="w-4 h-4 text-slate-500" />
+        <span className="text-sm text-slate-600">Data Subject Identifiability:</span>
+        <Badge variant="outline" className="text-sm">
+          {iQube.dataSubjectIdentifiability}
         </Badge>
       </div>
 

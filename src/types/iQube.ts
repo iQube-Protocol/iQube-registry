@@ -7,6 +7,7 @@ export interface IQube {
   ownerType: 'Individual' | 'Organisation';
   iQubeType: 'DataQube' | 'ContentQube' | 'ToolQube' | 'ModelQube' | 'AgentQube';
   ownerIdentifiability: 'Anonymous' | 'Semi-Anonymous' | 'Semi-Identifiable' | 'Identifiable';
+  dataSubjectIdentifiability: 'Anonymous' | 'Semi-Anonymous' | 'Semi-Identifiable' | 'Identifiable';
   transactionDate: string;
   sensitivityScore: number;
   verifiabilityScore: number;

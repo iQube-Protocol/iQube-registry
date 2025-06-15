@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { IQubeFormData, IQube } from '@/types/iQube';
 import { IQubeTemplateSelector } from './IQubeTemplateSelector';
+import { IQubeTemplateMintForm } from './IQubeTemplateMintForm';
 import { BlakQubeDataForm } from './BlakQubeDataForm';
 import { BlakQubeDataItem } from '../modal/blakQubeDataUtils';
 
@@ -21,6 +22,7 @@ const iQubeSchema = z.object({
   ownerType: z.enum(['Individual', 'Organisation']),
   iQubeType: z.enum(['DataQube', 'ContentQube', 'ToolQube', 'ModelQube', 'AgentQube']),
   ownerIdentifiability: z.enum(['Anonymous', 'Semi-Anonymous', 'Semi-Identifiable', 'Identifiable']),
+  dataSubjectIdentifiability: z.enum(['Anonymous', 'Semi-Anonymous', 'Semi-Identifiable', 'Identifiable']),
   transactionDate: z.string(),
   sensitivityScore: z.number().min(1).max(10),
   verifiabilityScore: z.number().min(1).max(10),
@@ -45,6 +47,7 @@ interface IQubeFormProps {
 export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existingIQube }: IQubeFormProps) => {
   const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
   const [showTemplateSelector, setShowTemplateSelector] = useState(!isEditing && !initialData);
+  const [isTemplateMode, setIsTemplateMode] = useState(false);
   const [blakQubeData, setBlakQubeData] = useState<BlakQubeDataItem[]>([]);
   const [currentIQubeData, setCurrentIQubeData] = useState<IQube | null>(existingIQube || null);
 
@@ -58,6 +61,7 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
       riskScore: 5,
       price: 0,
       publicWalletKey: '',
+      dataSubjectIdentifiability: 'Anonymous',
       ...initialData
     }
   });
@@ -77,6 +81,7 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
           ownerType: value.ownerType || 'Individual',
           iQubeType: value.iQubeType || 'DataQube',
           ownerIdentifiability: value.ownerIdentifiability || 'Anonymous',
+          dataSubjectIdentifiability: value.dataSubjectIdentifiability || 'Anonymous',
           transactionDate: value.transactionDate || new Date().toISOString().split('T')[0],
           sensitivityScore: value.sensitivityScore || 5,
           verifiabilityScore: value.verifiabilityScore || 5,
@@ -109,10 +114,18 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
 
   const handleTemplateSelect = (template: any) => {
     setSelectedTemplate(template);
+    setIsTemplateMode(true);
   };
 
   const handleCreateCustom = () => {
     setShowTemplateSelector(false);
+    setIsTemplateMode(false);
+  };
+
+  const handleTemplateMint = (blakQubeData: BlakQubeDataItem[]) => {
+    // When minting from template, only submit the BlakQube data
+    // The template data remains unchanged
+    onSubmit(selectedTemplate.baseData, blakQubeData);
   };
 
   const handleFormSubmit = (data: IQubeFormData) => {
@@ -128,11 +141,22 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
     );
   }
 
+  // If user selected a template to mint from
+  if (isTemplateMode && selectedTemplate) {
+    return (
+      <IQubeTemplateMintForm
+        template={selectedTemplate.baseData}
+        onSubmit={handleTemplateMint}
+        onCancel={onCancel}
+      />
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-slate-900">
-          {isEditing ? 'Edit iQube' : 'Create New iQube'}
+          {isEditing ? 'Edit iQube Template' : 'Create Custom iQube Template'}
         </h2>
         {selectedTemplate && (
           <Button
@@ -480,13 +504,16 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
 
           <Separator />
 
-          {/* Show BlakQube Data Form for all iQubes that have sufficient data */}
+          {/* Show BlakQube Data Form for template creation - user defines the structure */}
           {currentIQubeData && currentIQubeData.iQubeName && (
             <Card>
               <CardHeader>
-                <CardTitle>BlakQube Data Configuration</CardTitle>
+                <CardTitle>BlakQube Data Structure (Template)</CardTitle>
               </CardHeader>
               <CardContent>
+                <p className="text-sm text-slate-600 mb-4">
+                  Define the data fields that users will fill when minting this iQube template.
+                </p>
                 <BlakQubeDataForm
                   iQube={currentIQubeData}
                   onDataChange={setBlakQubeData}
@@ -500,7 +527,7 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
               Cancel
             </Button>
             <Button type="submit" className="bg-gradient-to-r from-blue-500 to-purple-600">
-              {isEditing ? 'Update iQube' : 'Create iQube'}
+              {isEditing ? 'Update Template' : 'Create Template'}
             </Button>
           </div>
         </form>
