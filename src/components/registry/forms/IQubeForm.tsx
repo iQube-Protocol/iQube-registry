@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { IQubeFormData } from '@/types/iQube';
+import { IQubeFormData, IQube } from '@/types/iQube';
 import { IQubeTemplateSelector } from './IQubeTemplateSelector';
 import { BlakQubeDataForm } from './BlakQubeDataForm';
 import { BlakQubeDataItem } from '../modal/blakQubeDataUtils';

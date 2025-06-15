@@ -8,7 +8,7 @@ export interface BlakQubeDataItem {
 }
 
 export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
-  // Qrypto Profile structure
+  // Qrypto Profile structure - the reference implementation
   if (iQube.id === '1' || iQube.iQubeName === 'Qrypto Profile') {
     return [
       { key: 'First-Name', value: '', source: 'linkedin' },
@@ -36,7 +36,119 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
     ];
   }
   
-  // MonDAI Profile structure (IDs 9 and 10)
+  // Trading Agent - AI/automation focused
+  if (iQube.id === '2' || iQube.iQubeName === 'Trading Agent') {
+    return [
+      { key: 'Agent Name', value: '', source: 'custom' },
+      { key: 'Trading Strategy', value: '', source: 'custom' },
+      { key: 'Risk Tolerance', value: '', source: 'custom' },
+      { key: 'Portfolio Size', value: '', source: 'custom' },
+      { key: 'API Keys', value: '', source: 'custom' },
+      { key: 'Exchange Integrations', value: '', source: 'custom' },
+      { key: 'Performance Metrics', value: '', source: 'custom' },
+      { key: 'Backtesting Results', value: '', source: 'custom' },
+      { key: 'License Key', value: '', source: 'custom' },
+      { key: 'Support Contact', value: '', source: 'custom' }
+    ];
+  }
+
+  // Market Sentiment Dataset - data focused
+  if (iQube.id === '3' || iQube.iQubeName === 'Market Sentiment Dataset') {
+    return [
+      { key: 'Data Sources', value: '', source: 'twitter' },
+      { key: 'Update Frequency', value: '', source: 'custom' },
+      { key: 'Data Format', value: '', source: 'custom' },
+      { key: 'API Endpoint', value: '', source: 'custom' },
+      { key: 'Sample Data', value: '', source: 'custom' },
+      { key: 'Documentation URL', value: '', source: 'custom' },
+      { key: 'License Terms', value: '', source: 'custom' },
+      { key: 'Support Contact', value: '', source: 'custom' },
+      { key: 'Twitter API Access', value: '', source: 'twitter' },
+      { key: 'Reddit Integration', value: '', source: 'custom' }
+    ];
+  }
+
+  // Video Tutorial Collection - content focused
+  if (iQube.id === '4' || iQube.iQubeName === 'Video Tutorial Collection') {
+    return [
+      { key: 'Total Videos', value: '', source: 'youtube' },
+      { key: 'Duration (Hours)', value: '', source: 'custom' },
+      { key: 'Skill Level', value: '', source: 'custom' },
+      { key: 'Topics Covered', value: '', source: 'custom' },
+      { key: 'YouTube Channel', value: '', source: 'youtube' },
+      { key: 'Instructor Name', value: '', source: 'custom' },
+      { key: 'Course Materials', value: '', source: 'custom' },
+      { key: 'Completion Certificate', value: '', source: 'custom' },
+      { key: 'Student Reviews', value: '', source: 'custom' },
+      { key: 'Access Method', value: '', source: 'custom' }
+    ];
+  }
+
+  // Smart Contract Auditor - tool focused
+  if (iQube.id === '5' || iQube.iQubeName === 'Smart Contract Auditor') {
+    return [
+      { key: 'Tool Version', value: '', source: 'custom' },
+      { key: 'Supported Languages', value: '', source: 'custom' },
+      { key: 'Vulnerability Database', value: '', source: 'custom' },
+      { key: 'Gas Analysis', value: '', source: 'ethereum' },
+      { key: 'Report Format', value: '', source: 'custom' },
+      { key: 'API Access', value: '', source: 'custom' },
+      { key: 'Installation Guide', value: '', source: 'custom' },
+      { key: 'Support Documentation', value: '', source: 'custom' },
+      { key: 'License Key', value: '', source: 'custom' },
+      { key: 'Update Schedule', value: '', source: 'custom' }
+    ];
+  }
+
+  // GPT-4 Finance Model - AI model focused
+  if (iQube.id === '6' || iQube.iQubeName === 'GPT-4 Finance Model') {
+    return [
+      { key: 'Model Version', value: '', source: 'custom' },
+      { key: 'Training Data', value: '', source: 'custom' },
+      { key: 'API Endpoint', value: '', source: 'custom' },
+      { key: 'Request Limits', value: '', source: 'custom' },
+      { key: 'Response Format', value: '', source: 'custom' },
+      { key: 'Accuracy Metrics', value: '', source: 'custom' },
+      { key: 'Use Cases', value: '', source: 'custom' },
+      { key: 'API Key', value: '', source: 'custom' },
+      { key: 'Documentation', value: '', source: 'custom' },
+      { key: 'Support Contact', value: '', source: 'custom' }
+    ];
+  }
+
+  // Podcast Archive - content focused
+  if (iQube.id === '7' || iQube.iQubeName === 'Podcast Archive') {
+    return [
+      { key: 'Total Episodes', value: '', source: 'custom' },
+      { key: 'Archive Size (GB)', value: '', source: 'custom' },
+      { key: 'Date Range', value: '', source: 'custom' },
+      { key: 'Search Functionality', value: '', source: 'custom' },
+      { key: 'Transcript Quality', value: '', source: 'custom' },
+      { key: 'Download Format', value: '', source: 'custom' },
+      { key: 'Metadata Fields', value: '', source: 'custom' },
+      { key: 'Access Method', value: '', source: 'custom' },
+      { key: 'Update Frequency', value: '', source: 'custom' },
+      { key: 'Creator Contact', value: '', source: 'custom' }
+    ];
+  }
+
+  // Price Prediction Model - AI model focused
+  if (iQube.id === '8' || iQube.iQubeName === 'Price Prediction Model') {
+    return [
+      { key: 'Model Type', value: '', source: 'custom' },
+      { key: 'Prediction Accuracy', value: '', source: 'custom' },
+      { key: 'Supported Assets', value: '', source: 'custom' },
+      { key: 'Time Horizons', value: '', source: 'custom' },
+      { key: 'Data Sources', value: '', source: 'custom' },
+      { key: 'API Access', value: '', source: 'custom' },
+      { key: 'Backtesting Results', value: '', source: 'custom' },
+      { key: 'Update Frequency', value: '', source: 'custom' },
+      { key: 'License Terms', value: '', source: 'custom' },
+      { key: 'Support Documentation', value: '', source: 'custom' }
+    ];
+  }
+  
+  // MonDAI Profile structures (IDs 9 and 10) - following Qrypto pattern
   if ((iQube.id === '9' || iQube.id === '10') || iQube.iQubeName === 'MonDAI Profile') {
     return [
       { key: 'First-Name', value: '', source: 'linkedin' },
@@ -60,11 +172,13 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
       { key: 'Tik Tok Handle', value: '', source: 'tiktok' },
       { key: 'Web3 Interests', value: '', source: 'custom' },
       { key: 'Tokens-of-Interest', value: '', source: 'custom' },
-      { key: 'Associated Public Keys', value: '', source: 'custom' }
+      { key: 'Associated Public Keys', value: '', source: 'custom' },
+      { key: 'AI Biometric Data', value: '', source: 'mondai' },
+      { key: 'Social Graph Score', value: '', source: 'mondai' }
     ];
   }
   
-  // KNYT Profile structure - Updated with your schema
+  // KNYT Profile structure - entertainment focused, following Qrypto pattern
   if (iQube.id === '11' || iQube.iQubeName === 'KNYT Profile') {
     return [
       { key: 'First Name', value: '', source: 'linkedin' },
