@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { IQube, IQubeFormData } from '@/types/iQube';
 import { AnalyticsData } from '@/types/analytics';
@@ -19,6 +18,7 @@ export const useIQubes = () => {
         const instanceCount = iQubesList.filter(
           item => item.iQubeInstanceType === 'instance' && item.templateId === iqube.id
         ).length;
+        console.log(`Template ${iqube.iQubeName} (ID: ${iqube.id}) has ${instanceCount} instances`);
         return { ...iqube, instanceCount };
       }
       return iqube;
@@ -27,7 +27,12 @@ export const useIQubes = () => {
 
   useEffect(() => {
     const data = loadFromStorage();
+    console.log('Raw data loaded:', data.length, 'items');
+    console.log('Templates in data:', data.filter(iq => iq.iQubeInstanceType === 'template').length);
+    console.log('Instances in data:', data.filter(iq => iq.iQubeInstanceType === 'instance').length);
+    
     const dataWithCounts = updateInstanceCounts(data);
+    console.log('Data with instance counts calculated');
     setIQubes(dataWithCounts);
     setLoading(false);
   }, []);

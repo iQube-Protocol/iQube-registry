@@ -1,4 +1,3 @@
-
 import { useState, useMemo, useEffect } from 'react';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQube } from '@/types/iQube';
@@ -30,8 +29,10 @@ export const Registry = () => {
   useEffect(() => {
     console.log('Registry loaded with iQubes:', iQubes.length);
     console.log('All iQube names:', iQubes.map(iqube => iqube.iQubeName));
-    const knyteProfile = iQubes.find(iqube => iqube.id === '11' || iqube.iQubeName === 'KNYT Profile');
-    console.log('KNYT Profile in registry:', knyteProfile?.iQubeName || 'NOT FOUND');
+    const templatesWithInstances = iQubes.filter(iqube => 
+      iqube.iQubeInstanceType === 'template' && (iqube.instanceCount || 0) > 0
+    );
+    console.log('Templates with instances:', templatesWithInstances.map(t => `${t.iQubeName}: ${t.instanceCount} instances`));
   }, [iQubes]);
 
   // Only show templates in the main registry view
@@ -120,10 +121,23 @@ export const Registry = () => {
   };
 
   const handleViewInstances = (templateId: string) => {
+    console.log('handleViewInstances called with templateId:', templateId);
     const template = iQubes.find(iq => iq.id === templateId);
     if (template) {
+      console.log('Found template:', template.iQubeName);
       setSelectedTemplate(template);
       setInstancesModalOpen(true);
+    } else {
+      console.log('Template not found for ID:', templateId);
+    }
+  };
+
+  const handleViewTemplate = (templateId: string) => {
+    const template = iQubes.find(iq => iq.id === templateId);
+    if (template) {
+      setDetailModalOpen(false);
+      setSelectedIQube(template);
+      setDetailModalOpen(true);
     }
   };
 
@@ -219,6 +233,7 @@ export const Registry = () => {
           setDetailModalOpen(false);
           handleEdit(iqube);
         }}
+        onViewTemplate={handleViewTemplate}
       />
 
       <InstancesModal

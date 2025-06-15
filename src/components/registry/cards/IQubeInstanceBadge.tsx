@@ -26,6 +26,8 @@ export const IQubeInstanceBadge = ({ iQube, onViewInstances }: IQubeInstanceBadg
   if (iQube.iQubeInstanceType === 'template') {
     // Show instance count for templates
     const instanceCount = iQube.instanceCount || 0;
+    console.log(`Rendering template ${iQube.iQubeName} with instanceCount: ${instanceCount}`);
+    
     return (
       <div className="flex items-center gap-2">
         <Badge variant="outline" className="text-xs">
@@ -35,14 +37,23 @@ export const IQubeInstanceBadge = ({ iQube, onViewInstances }: IQubeInstanceBadg
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onViewInstances?.(iQube.id)}
-            className="h-6 px-2 text-xs hover:bg-blue-50"
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(`Clicking instances button for template ${iQube.id}`);
+              onViewInstances?.(iQube.id);
+            }}
+            className="h-6 px-2 text-xs hover:bg-blue-50 border border-blue-200"
           >
             <Badge variant="secondary" className="text-xs mr-1">
               {instanceCount}
             </Badge>
             Instance{instanceCount !== 1 ? 's' : ''}
           </Button>
+        )}
+        {instanceCount === 0 && (
+          <Badge variant="secondary" className="text-xs">
+            0 Instances
+          </Badge>
         )}
       </div>
     );
