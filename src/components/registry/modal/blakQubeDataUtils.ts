@@ -1,5 +1,6 @@
 
 
+
 import { IQube } from '@/types/iQube';
 
 export interface BlakQubeDataItem {
@@ -10,7 +11,7 @@ export interface BlakQubeDataItem {
 
 export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   // Qrypto Profile structure - updated with correct fields
-  if (iQube.id === '1' || iQube.iQubeName === 'Qrypto Profile') {
+  if (iQube.id === '1' || iQube.iQubeName === 'Qrypto Profile' || iQube.templateId === '1') {
     return [
       { key: 'First-Name', value: '', source: 'linkedin' },
       { key: 'Last-Name', value: '', source: 'linkedin' },
@@ -38,7 +39,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
   
   // Trading Agent - AI/automation focused
-  if (iQube.id === '2' || iQube.iQubeName === 'Trading Agent') {
+  if (iQube.id === '2' || iQube.iQubeName === 'Trading Agent' || iQube.templateId === '2') {
     return [
       { key: 'Agent Name', value: '', source: 'custom' },
       { key: 'Trading Strategy', value: '', source: 'custom' },
@@ -54,7 +55,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
 
   // Market Sentiment Dataset - data focused
-  if (iQube.id === '3' || iQube.iQubeName === 'Market Sentiment Dataset') {
+  if (iQube.id === '3' || iQube.iQubeName === 'Market Sentiment Dataset' || iQube.templateId === '3') {
     return [
       { key: 'Data Sources', value: '', source: 'twitter' },
       { key: 'Update Frequency', value: '', source: 'custom' },
@@ -70,7 +71,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
 
   // Video Tutorial Collection - content focused
-  if (iQube.id === '4' || iQube.iQubeName === 'Video Tutorial Collection') {
+  if (iQube.id === '4' || iQube.iQubeName === 'Video Tutorial Collection' || iQube.templateId === '4') {
     return [
       { key: 'Total Videos', value: '', source: 'youtube' },
       { key: 'Duration (Hours)', value: '', source: 'custom' },
@@ -86,7 +87,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
 
   // Smart Contract Auditor - tool focused
-  if (iQube.id === '5' || iQube.iQubeName === 'Smart Contract Auditor') {
+  if (iQube.id === '5' || iQube.iQubeName === 'Smart Contract Auditor' || iQube.templateId === '5') {
     return [
       { key: 'Tool Version', value: '', source: 'custom' },
       { key: 'Supported Languages', value: '', source: 'custom' },
@@ -102,7 +103,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
 
   // GPT-4 Finance Model - AI model focused
-  if (iQube.id === '6' || iQube.iQubeName === 'GPT-4 Finance Model') {
+  if (iQube.id === '6' || iQube.iQubeName === 'GPT-4 Finance Model' || iQube.templateId === '6') {
     return [
       { key: 'Model Version', value: '', source: 'custom' },
       { key: 'Training Data', value: '', source: 'custom' },
@@ -118,7 +119,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
 
   // Podcast Archive - content focused
-  if (iQube.id === '7' || iQube.iQubeName === 'Podcast Archive') {
+  if (iQube.id === '7' || iQube.iQubeName === 'Podcast Archive' || iQube.templateId === '7') {
     return [
       { key: 'Total Episodes', value: '', source: 'custom' },
       { key: 'Archive Size (GB)', value: '', source: 'custom' },
@@ -134,7 +135,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
 
   // Price Prediction Model - AI model focused
-  if (iQube.id === '8' || iQube.iQubeName === 'Price Prediction Model') {
+  if (iQube.id === '8' || iQube.iQubeName === 'Price Prediction Model' || iQube.templateId === '8') {
     return [
       { key: 'Model Type', value: '', source: 'custom' },
       { key: 'Prediction Accuracy', value: '', source: 'custom' },
@@ -150,7 +151,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
   
   // MonDAI Profile structures (IDs 9 and 10) - following Qrypto pattern
-  if ((iQube.id === '9' || iQube.id === '10') || iQube.iQubeName === 'MonDAI Profile') {
+  if ((iQube.id === '9' || iQube.id === '10') || iQube.iQubeName === 'MonDAI Profile' || iQube.templateId === '9' || iQube.templateId === '10') {
     return [
       { key: 'First-Name', value: '', source: 'linkedin' },
       { key: 'Last-Name', value: '', source: 'linkedin' },
@@ -180,7 +181,7 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   }
   
   // KNYT Profile structure - entertainment focused, following Qrypto pattern
-  if (iQube.id === '11' || iQube.iQubeName === 'KNYT Profile') {
+  if (iQube.id === '11' || iQube.iQubeName === 'KNYT Profile' || iQube.templateId === '11') {
     return [
       { key: 'First Name', value: '', source: 'linkedin' },
       { key: 'Last name', value: '', source: 'linkedin' },
@@ -237,4 +238,5 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
     { key: 'Public Wallet Key', value: iQube.publicWalletKey, source: 'custom' }
   ];
 };
+
 
