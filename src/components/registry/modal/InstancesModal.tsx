@@ -97,7 +97,7 @@ export const InstancesModal = ({
                       <div className="text-sm text-slate-600 space-y-1">
                         <p>Created: {new Date(instance.createdAt).toLocaleDateString()}</p>
                         <p>Transaction: {instance.transactionDate}</p>
-                        <p>Wallet: {instance.publicWalletKey}</p>
+                        <p>Contract ID: {instance.publicWalletKey}</p>
                       </div>
                     </div>
                     
