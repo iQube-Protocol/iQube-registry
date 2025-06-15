@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -421,11 +422,11 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
                         <SelectItem value="Unstructured">Unstructured</SelectItem>
                         <SelectItem value="Access Keys">Access Keys</SelectItem>
                       </SelectContent>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </FormField>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
