@@ -51,7 +51,7 @@ export const IQubeInstanceBadge = ({ iQube, onViewInstances }: IQubeInstanceBadg
           </Button>
         )}
         {instanceCount === 0 && (
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="secondary" className="text-xs whitespace-nowrap min-w-fit px-3">
             0 Instances
           </Badge>
         )}
