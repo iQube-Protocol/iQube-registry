@@ -1,3 +1,4 @@
+
 export interface IQube {
   id: string;
   iQubeName: string;
@@ -25,12 +26,3 @@ export interface IQube {
 }
 
 export interface IQubeFormData extends Omit<IQube, 'id' | 'createdAt' | 'updatedAt' | 'trustScore' | 'reliabilityIndex'> {}
-
-export interface AnalyticsData {
-  totalIQubes: number;
-  averageRiskScore: number;
-  averagePrice: number;
-  popularTypes: Array<{ type: string; count: number }>;
-  businessModelDistribution: Array<{ model: string; count: number }>;
-  monthlyTransactions: Array<{ month: string; count: number }>;
-}
