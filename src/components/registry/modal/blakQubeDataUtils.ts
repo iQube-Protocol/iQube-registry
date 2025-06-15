@@ -1,4 +1,3 @@
-
 import { IQube } from '@/types/iQube';
 
 export interface BlakQubeDataItem {
@@ -11,28 +10,28 @@ export const getBlakQubeData = (iQube: IQube): BlakQubeDataItem[] => {
   // Qrypto Profile structure
   if (iQube.id === '1' || iQube.iQubeName === 'Qrypto Profile') {
     return [
-      { key: 'First-Name', value: 'John', source: 'linkedin' },
-      { key: 'Last-Name', value: 'Doe', source: 'linkedin' },
-      { key: '@Qrypto ID', value: '@johndoe_qrypto', source: 'qrypto' },
-      { key: 'Profession', value: 'Blockchain Developer', source: 'linkedin' },
-      { key: 'Local-City', value: 'San Francisco', source: 'facebook' },
-      { key: 'Email', value: 'john.doe@email.com', source: 'linkedin' },
-      { key: 'EVM Public Key', value: '0x742d35Cc6532C4532f5ccC1b1f94396aAbc4532e', source: 'ethereum' },
-      { key: 'BTC-Public-Key', value: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', source: 'bitcoin' },
-      { key: 'ThirdWeb Public Key', value: '0x8f4A9b2c1d5e8f3a6b9c2d5e8f3a6b9c2d5e8f3a', source: 'thirdweb' },
-      { key: 'LinkedIn ID', value: 'john-doe-dev', source: 'linkedin' },
-      { key: 'LinkedIn-Profile-URL', value: 'linkedin.com/in/john-doe-dev', source: 'linkedin' },
-      { key: 'Twitter-Handle', value: '@johnDoeWeb3', source: 'twitter' },
-      { key: 'Telegram-Handle', value: '@johndoe_crypto', source: 'telegram' },
-      { key: 'Discord-Handle', value: 'JohnDoe#1234', source: 'discord' },
-      { key: 'Instagram-Handle', value: '@johndoe_crypto', source: 'instagram' },
-      { key: 'Luma-ID', value: 'johndoe.luma.co', source: 'luma' },
-      { key: 'YouTube ID', value: 'JohnDoeBlockchain', source: 'youtube' },
-      { key: 'Facebook ID', value: 'john.doe.blockchain', source: 'facebook' },
-      { key: 'Tik Tok Handle', value: '@johndoecrypto', source: 'tiktok' },
-      { key: 'Web3 Interests', value: 'DeFi, NFTs, DAOs', source: 'custom' },
-      { key: 'Tokens-of-Interest', value: 'ETH, BTC, USDC, UNI', source: 'custom' },
-      { key: 'Associated Public Keys', value: '3 verified wallets', source: 'custom' }
+      { key: 'First-Name', value: '', source: 'linkedin' },
+      { key: 'Last-Name', value: '', source: 'linkedin' },
+      { key: '@Qrypto ID', value: '', source: 'qrypto' },
+      { key: 'Profession', value: '', source: 'linkedin' },
+      { key: 'Local-City', value: '', source: 'facebook' },
+      { key: 'Email', value: '', source: 'linkedin' },
+      { key: 'EVM Public Key', value: '', source: 'ethereum' },
+      { key: 'BTC-Public-Key', value: '', source: 'bitcoin' },
+      { key: 'ThirdWeb Public Key', value: '', source: 'thirdweb' },
+      { key: 'LinkedIn ID', value: '', source: 'linkedin' },
+      { key: 'LinkedIn-Profile-URL', value: '', source: 'linkedin' },
+      { key: 'Twitter-Handle', value: '', source: 'twitter' },
+      { key: 'Telegram-Handle', value: '', source: 'telegram' },
+      { key: 'Discord-Handle', value: '', source: 'discord' },
+      { key: 'Instagram-Handle', value: '', source: 'instagram' },
+      { key: 'Luma-ID', value: '', source: 'luma' },
+      { key: 'YouTube ID', value: '', source: 'youtube' },
+      { key: 'Facebook ID', value: '', source: 'facebook' },
+      { key: 'Tik Tok Handle', value: '', source: 'tiktok' },
+      { key: 'Web3 Interests', value: '', source: 'custom' },
+      { key: 'Tokens-of-Interest', value: '', source: 'custom' },
+      { key: 'Associated Public Keys', value: '', source: 'custom' }
     ];
   }
   
