@@ -5,9 +5,10 @@ import { Badge } from '@/components/ui/badge';
 import { ScoreIndicator } from '@/components/ui/ScoreIndicator';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Edit, Calendar, User, Wallet } from 'lucide-react';
+import { Edit, Calendar, User, Wallet, Copy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/utils/priceUtils';
+import { toast } from '@/hooks/use-toast';
 
 interface IQubeDetailModalProps {
   iQube: IQube | null;
@@ -22,6 +23,17 @@ const typeColors = {
   ToolQube: 'bg-purple-100 text-purple-800',
   ModelQube: 'bg-orange-100 text-orange-800',
   AgentQube: 'bg-red-100 text-red-800'
+};
+
+const businessModelColors = {
+  Buy: 'bg-emerald-100 text-emerald-800',
+  Sell: 'bg-orange-100 text-orange-800',
+  Rent: 'bg-purple-100 text-purple-800',
+  Lease: 'bg-indigo-100 text-indigo-800',
+  Subscribe: 'bg-cyan-100 text-cyan-800',
+  Stake: 'bg-yellow-100 text-yellow-800',
+  License: 'bg-pink-100 text-pink-800',
+  Donate: 'bg-gray-100 text-gray-800'
 };
 
 // Mock blakQube data structure - in real app this would come from the iQube object
@@ -90,6 +102,16 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
   const priceDisplay = formatPrice(iQube.price);
   const blakQubeData = getBlakQubeData(iQube);
 
+  const handleCopyAddress = () => {
+    if (iQube.publicWalletKey) {
+      navigator.clipboard.writeText(iQube.publicWalletKey);
+      toast({
+        title: "Copied!",
+        description: "Contract address copied to clipboard.",
+      });
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -103,10 +125,30 @@ export const IQubeDetailModal = ({ iQube, open, onClose, onEdit }: IQubeDetailMo
                 <Badge className={cn('text-sm', typeColors[iQube.iQubeType])}>
                   {iQube.iQubeType}
                 </Badge>
+                <Badge className={cn('text-sm', businessModelColors[iQube.businessModel])}>
+                  {iQube.businessModel}
+                </Badge>
                 <Badge variant="secondary" className="text-sm">
                   {iQube.ownerIdentifiability}
                 </Badge>
               </div>
+              {/* Contract Address */}
+              {iQube.publicWalletKey && (
+                <div className="flex items-center space-x-2 mb-2">
+                  <Wallet className="w-4 h-4 text-slate-500" />
+                  <span className="text-sm text-slate-600 font-mono truncate max-w-xs">
+                    {iQube.publicWalletKey}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleCopyAddress}
+                    className="p-1 h-6 w-6"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                </div>
+              )}
             </div>
             <div className="text-right">
               <p className="text-3xl font-bold text-slate-900">
