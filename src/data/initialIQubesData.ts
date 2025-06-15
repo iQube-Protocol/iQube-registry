@@ -1,3 +1,4 @@
+
 import { IQube } from '@/types/iQube';
 
 export const initialIQubesData: IQube[] = [
@@ -21,6 +22,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x742d35Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-15T10:30:00Z',
     updatedAt: '2024-01-15T10:30:00Z'
   },
@@ -44,6 +46,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x8ba1f109551bD432803012645Hac136c22C177ec',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-20T14:15:00Z',
     updatedAt: '2024-01-20T14:15:00Z'
   },
@@ -67,6 +70,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Forever',
     publicWalletKey: '0x41414Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Unstructured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-25T09:00:00Z',
     updatedAt: '2024-01-25T09:00:00Z'
   },
@@ -90,6 +94,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x22222Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Unstructured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-30T16:45:00Z',
     updatedAt: '2024-01-30T16:45:00Z'
   },
@@ -113,6 +118,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Year',
     publicWalletKey: '0x99999Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Access Keys',
+    iQubeInstanceType: 'template',
     createdAt: '2024-02-05T11:20:00Z',
     updatedAt: '2024-02-05T11:20:00Z'
   },
@@ -136,6 +142,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x66666Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-02-10T13:00:00Z',
     updatedAt: '2024-02-10T13:00:00Z'
   },
@@ -159,6 +166,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Forever',
     publicWalletKey: '0x11111Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Unstructured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-02-15T15:30:00Z',
     updatedAt: '2024-02-15T15:30:00Z'
   },
@@ -182,6 +190,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Day',
     publicWalletKey: '0x55555Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-02-20T10:00:00Z',
     updatedAt: '2024-02-20T10:00:00Z'
   },
@@ -205,6 +214,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x742d35Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-15T10:30:00Z',
     updatedAt: '2024-01-15T10:30:00Z'
   },
@@ -228,6 +238,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x742d35Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-15T10:30:00Z',
     updatedAt: '2024-01-15T10:30:00Z'
   },
@@ -251,6 +262,7 @@ export const initialIQubesData: IQube[] = [
     durationOfRights: 'Per Month',
     publicWalletKey: '0x742d35Cc6654c0532925a3b8c17c9AFcEB4b0b4F',
     blakQubeSchema: 'Structured',
+    iQubeInstanceType: 'template',
     createdAt: '2024-01-15T10:30:00Z',
     updatedAt: '2024-01-15T10:30:00Z'
   }

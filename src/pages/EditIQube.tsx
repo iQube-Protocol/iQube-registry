@@ -3,13 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useIQubes } from '@/hooks/useIQubes';
 import { IQubeFormData } from '@/types/iQube';
 import { IQubeForm } from '@/components/registry/forms/IQubeForm';
+import { IQubeTemplateMintForm } from '@/components/registry/forms/IQubeTemplateMintForm';
 import { BlakQubeDataItem } from '@/components/registry/modal/blakQubeDataUtils';
 import { toast } from '@/hooks/use-toast';
 
 export const EditIQube = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { iQubes, updateIQube } = useIQubes();
+  const { iQubes, updateIQube, updateIQubeBlakQubeData } = useIQubes();
 
   const iQube = iQubes.find(iq => iq.id === id);
 
@@ -30,13 +31,26 @@ export const EditIQube = () => {
     );
   }
 
-  const handleSubmit = (data: IQubeFormData, blakQubeData?: BlakQubeDataItem[]) => {
+  // Handle template editing (full form access)
+  const handleTemplateSubmit = (data: IQubeFormData, blakQubeData?: BlakQubeDataItem[]) => {
     updateIQube(id!, data);
-    console.log('Updated BlakQube Data:', blakQubeData); // Store this data as needed
+    console.log('Updated template with BlakQube structure:', blakQubeData);
     
     toast({
-      title: "iQube Updated",
-      description: `${data.iQubeName} has been successfully updated.`,
+      title: "Template Updated",
+      description: `${data.iQubeName} template has been successfully updated.`,
+    });
+    
+    navigate('/');
+  };
+
+  // Handle instance editing (BlakQube data only)
+  const handleInstanceSubmit = (blakQubeData: BlakQubeDataItem[]) => {
+    updateIQubeBlakQubeData(id!, blakQubeData);
+    
+    toast({
+      title: "Data Updated",
+      description: `Your ${iQube.iQubeName} data has been successfully updated.`,
     });
     
     navigate('/');
@@ -48,13 +62,21 @@ export const EditIQube = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <IQubeForm
-        initialData={iQube}
-        existingIQube={iQube}
-        onSubmit={handleSubmit}
-        onCancel={handleCancel}
-        isEditing={true}
-      />
+      {iQube.iQubeInstanceType === 'template' ? (
+        <IQubeForm
+          initialData={iQube}
+          existingIQube={iQube}
+          onSubmit={handleTemplateSubmit}
+          onCancel={handleCancel}
+          isEditing={true}
+        />
+      ) : (
+        <IQubeTemplateMintForm
+          template={iQube}
+          onSubmit={handleInstanceSubmit}
+          onCancel={handleCancel}
+        />
+      )}
     </div>
   );
 };

@@ -30,10 +30,11 @@ const iQubeSchema = z.object({
   riskScore: z.number().min(1).max(10),
   businessModel: z.enum(['Buy', 'Sell', 'Rent', 'Lease', 'Subscribe', 'Stake', 'License', 'Donate']),
   price: z.number().min(0),
-  priceTo: z.enum(['Use', 'Mint', 'Purchase', 'Sell', 'Lease', 'Rent', 'Stake', 'License']),
+  priceTo: z.enum(['Use', 'Mint', 'Purchase', 'Sell', 'Lease', 'Rent', 'Stake', 'License', 'Donate']),
   durationOfRights: z.enum(['Forever', 'Per Use', 'Per Minute', 'Per Hour', 'Per Day', 'Per Week', 'Per Month', 'Per Year']),
   publicWalletKey: z.string(),
-  blakQubeSchema: z.enum(['Structured', 'Unstructured', 'Access Keys'])
+  blakQubeSchema: z.enum(['Structured', 'Unstructured', 'Access Keys']),
+  iQubeInstanceType: z.enum(['template', 'instance'])
 });
 
 interface IQubeFormProps {
@@ -62,6 +63,7 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
       price: 0,
       publicWalletKey: '',
       dataSubjectIdentifiability: 'Anonymous',
+      iQubeInstanceType: 'template',
       ...initialData
     }
   });

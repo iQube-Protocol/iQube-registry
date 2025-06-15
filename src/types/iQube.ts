@@ -19,6 +19,8 @@ export interface IQube {
   durationOfRights: 'Forever' | 'Per Use' | 'Per Minute' | 'Per Hour' | 'Per Day' | 'Per Week' | 'Per Month' | 'Per Year';
   publicWalletKey: string;
   blakQubeSchema: 'Structured' | 'Unstructured' | 'Access Keys';
+  iQubeInstanceType: 'template' | 'instance';
+  templateId?: string; // For instances, reference to the original template
   createdAt: string;
   updatedAt: string;
   // Calculated composite scores

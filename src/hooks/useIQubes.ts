@@ -5,6 +5,7 @@ import { AnalyticsData } from '@/types/analytics';
 import { useIQubesStorage } from './useIQubesStorage';
 import { calculateCompositeScores } from '@/utils/compositeScores';
 import { calculateAnalytics } from '@/utils/analyticsUtils';
+import { BlakQubeDataItem } from '@/components/registry/modal/blakQubeDataUtils';
 
 export const useIQubes = () => {
   const [iQubes, setIQubes] = useState<IQube[]>([]);
@@ -30,6 +31,28 @@ export const useIQubes = () => {
     return newIQubeWithCompositeScores;
   };
 
+  const mintIQubeInstance = (templateId: string, blakQubeData: BlakQubeDataItem[]) => {
+    const template = iQubes.find(iq => iq.id === templateId);
+    if (!template) {
+      throw new Error('Template not found');
+    }
+
+    const newInstance: IQube = {
+      ...template,
+      id: Date.now().toString(),
+      iQubeInstanceType: 'instance',
+      templateId: templateId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    const updated = [...iQubes, newInstance];
+    setIQubes(updated);
+    saveToStorage(updated);
+    console.log('Minted instance with BlakQube data:', blakQubeData);
+    return newInstance;
+  };
+
   const updateIQube = (id: string, iQubeData: Partial<IQubeFormData>) => {
     const updated = iQubes.map(iqube => {
       if (iqube.id === id) {
@@ -40,6 +63,19 @@ export const useIQubes = () => {
     });
     setIQubes(updated);
     saveToStorage(updated);
+  };
+
+  const updateIQubeBlakQubeData = (id: string, blakQubeData: BlakQubeDataItem[]) => {
+    // For instances, update only the BlakQube data
+    const updated = iQubes.map(iqube => {
+      if (iqube.id === id) {
+        return { ...iqube, updatedAt: new Date().toISOString() };
+      }
+      return iqube;
+    });
+    setIQubes(updated);
+    saveToStorage(updated);
+    console.log('Updated BlakQube data for instance:', id, blakQubeData);
   };
 
   const deleteIQube = (id: string) => {
@@ -56,7 +92,9 @@ export const useIQubes = () => {
     iQubes,
     loading,
     addIQube,
+    mintIQubeInstance,
     updateIQube,
+    updateIQubeBlakQubeData,
     deleteIQube,
     getAnalytics
   };
