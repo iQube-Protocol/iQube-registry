@@ -1,4 +1,3 @@
-
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -30,6 +29,10 @@ export const FilterSection = ({
   onSortOrderChange,
   onViewModeChange
 }: FilterSectionProps) => {
+  const handleAllTypesClick = () => {
+    onTypeChange('all');
+  };
+
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 mb-6">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
@@ -102,6 +105,8 @@ export const FilterSection = ({
               <ViewModeToggle 
                 viewMode={viewMode}
                 onViewModeChange={onViewModeChange}
+                selectedType={selectedType}
+                onAllTypesClick={handleAllTypesClick}
               />
             </div>
           </div>
