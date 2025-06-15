@@ -6,7 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Registry } from "@/pages/Registry";
-import { Analytics } from "@/pages/Analytics"; 
+import { Analytics } from "@/pages/Analytics";
+import { AddIQube } from "@/pages/AddIQube";
+import { EditIQube } from "@/pages/EditIQube";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +23,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Registry />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/add" element={<AddIQube />} />
+            <Route path="/edit/:id" element={<EditIQube />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
