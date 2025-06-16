@@ -15,6 +15,7 @@ interface IQubeListCardProps {
   onDelete: (id: string) => void;
   onAddToCart?: (iQube: IQube) => void;
   onViewInstances?: (templateId: string) => void;
+  onViewTemplate?: (templateId: string) => void;
 }
 
 export const IQubeListCard = ({
@@ -23,7 +24,8 @@ export const IQubeListCard = ({
   onEdit,
   onDelete,
   onAddToCart,
-  onViewInstances
+  onViewInstances,
+  onViewTemplate
 }: IQubeListCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
 
@@ -39,7 +41,7 @@ export const IQubeListCard = ({
               <p className="text-sm text-slate-600 mb-2">
                 by {iQube.iQubeCreator}
               </p>
-              <IQubeInstanceBadge iQube={iQube} onViewInstances={onViewInstances} />
+              <IQubeInstanceBadge iQube={iQube} onViewInstances={onViewInstances} onViewTemplate={onViewTemplate} />
             </div>
             
             <div className="col-span-4">

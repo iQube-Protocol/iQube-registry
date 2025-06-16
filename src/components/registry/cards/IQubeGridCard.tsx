@@ -14,6 +14,7 @@ interface IQubeGridCardProps {
   onDelete: (id: string) => void;
   onAddToCart?: (iQube: IQube) => void;
   onViewInstances?: (templateId: string) => void;
+  onViewTemplate?: (templateId: string) => void;
 }
 
 export const IQubeGridCard = ({
@@ -22,7 +23,8 @@ export const IQubeGridCard = ({
   onEdit,
   onDelete,
   onAddToCart,
-  onViewInstances
+  onViewInstances,
+  onViewTemplate
 }: IQubeGridCardProps) => {
   const priceDisplay = formatPrice(iQube.price);
 
@@ -39,7 +41,7 @@ export const IQubeGridCard = ({
             </p>
             <div className="space-y-2">
               <IQubeBadges iQube={iQube} />
-              <IQubeInstanceBadge iQube={iQube} onViewInstances={onViewInstances} />
+              <IQubeInstanceBadge iQube={iQube} onViewInstances={onViewInstances} onViewTemplate={onViewTemplate} />
             </div>
           </div>
           <div className="text-right flex-shrink-0 min-w-0 max-w-[120px]">
