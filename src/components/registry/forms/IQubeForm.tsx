@@ -24,12 +24,12 @@ const iQubeSchema = z.object({
   ownerIdentifiability: z.enum(['Anonymous', 'Semi-Anonymous', 'Semi-Identifiable', 'Identifiable']),
   dataSubjectIdentifiability: z.enum(['Anonymous', 'Semi-Anonymous', 'Semi-Identifiable', 'Identifiable']),
   transactionDate: z.string(),
-  sensitivityScore: z.number().min(1).max(10),
-  verifiabilityScore: z.number().min(1).max(10),
-  accuracyScore: z.number().min(1).max(10),
-  riskScore: z.number().min(1).max(10),
+  sensitivityScore: z.coerce.number().min(1).max(10),
+  verifiabilityScore: z.coerce.number().min(1).max(10),
+  accuracyScore: z.coerce.number().min(1).max(10),
+  riskScore: z.coerce.number().min(1).max(10),
   businessModel: z.enum(['Buy', 'Sell', 'Rent', 'Lease', 'Subscribe', 'Stake', 'License', 'Donate']),
-  price: z.number().min(0),
+  price: z.coerce.number().min(0),
   priceTo: z.enum(['Use', 'Mint', 'Purchase', 'Sell', 'Lease', 'Rent', 'Stake', 'License', 'Donate']),
   durationOfRights: z.enum(['Forever', 'Per Use', 'Per Minute', 'Per Hour', 'Per Day', 'Per Week', 'Per Month', 'Per Year']),
   publicWalletKey: z.string(),
@@ -284,7 +284,11 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
                     <FormItem>
                       <FormLabel>Sensitivity Score (1-10)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          {...field} 
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -298,7 +302,11 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
                     <FormItem>
                       <FormLabel>Verifiability Score (1-10)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          {...field} 
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -314,7 +322,11 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
                     <FormItem>
                       <FormLabel>Accuracy Score (1-10)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          {...field} 
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -328,7 +340,11 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
                     <FormItem>
                       <FormLabel>Risk Score (1-10)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          {...field} 
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -379,7 +395,11 @@ export const IQubeForm = ({ initialData, onSubmit, onCancel, isEditing, existing
                     <FormItem>
                       <FormLabel>Price</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          {...field} 
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
