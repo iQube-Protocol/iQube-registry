@@ -2,8 +2,10 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import { User, Database, Wrench, Brain, Bot, Plus } from 'lucide-react';
 import { IQubeFormData } from '@/types/iQube';
+
 interface IQubeTemplate {
   id: string;
   name: string;
@@ -91,6 +93,7 @@ const templates: IQubeTemplate[] = [{
     blakQubeSchema: 'Structured'
   }
 }];
+
 interface IQubeTemplateSelectorProps {
   onSelectTemplate: (template: IQubeTemplate) => void;
   onCreateCustom: () => void;
@@ -133,13 +136,24 @@ export const IQubeTemplateSelector = ({
               </div>
             </CardContent>
           </Card>)}
+      </div>
 
-        <Card className="border-dashed border-2 cursor-pointer hover:shadow-lg transition-shadow">
+      <div className="flex items-center justify-center">
+        <Separator className="flex-1" />
+        <span className="px-4 text-sm text-slate-500 font-medium">OR</span>
+        <Separator className="flex-1" />
+      </div>
+
+      <div className="text-center">
+        <h3 className="text-xl font-semibold text-slate-900 mb-2">Create Custom iQube Template</h3>
+        <p className="text-slate-600 mb-6">Build your own schema from scratch with complete control over the data structure</p>
+        
+        <Card className="border-dashed border-2 cursor-pointer hover:shadow-lg transition-shadow max-w-md mx-auto">
           <CardContent className="flex flex-col items-center justify-center h-full py-8">
             <div className="p-4 bg-slate-100 rounded-full mb-4">
               <Plus className="w-8 h-8 text-slate-600" />
             </div>
-            <h3 className="font-semibold text-slate-900 mb-2">Custom iQube</h3>
+            <h4 className="font-semibold text-slate-900 mb-2">Custom iQube</h4>
             <p className="text-sm text-slate-600 text-center mb-4">
               Create your own schema from scratch
             </p>
