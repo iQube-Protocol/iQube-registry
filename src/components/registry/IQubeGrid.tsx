@@ -12,6 +12,7 @@ interface IQubeGridProps {
   onDelete: (id: string) => void;
   onAddToCart: (iQube: IQube) => void;
   onViewInstances?: (templateId: string) => void;
+  onViewTemplate?: (templateId: string) => void;
 }
 
 export const IQubeGrid = ({
@@ -21,7 +22,8 @@ export const IQubeGrid = ({
   onEdit,
   onDelete,
   onAddToCart,
-  onViewInstances
+  onViewInstances,
+  onViewTemplate
 }: IQubeGridProps) => {
   if (iQubes.length === 0) {
     return (
@@ -58,6 +60,7 @@ export const IQubeGrid = ({
             onDelete={onDelete}
             onAddToCart={onAddToCart}
             onViewInstances={onViewInstances}
+            onViewTemplate={onViewTemplate}
             viewMode="list"
           />
         ))}
@@ -76,6 +79,7 @@ export const IQubeGrid = ({
           onDelete={onDelete}
           onAddToCart={onAddToCart}
           onViewInstances={onViewInstances}
+          onViewTemplate={onViewTemplate}
           viewMode="grid"
         />
       ))}

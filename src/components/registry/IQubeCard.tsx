@@ -10,6 +10,7 @@ interface IQubeCardProps {
   onDelete: (id: string) => void;
   onAddToCart?: (iQube: IQube) => void;
   onViewInstances?: (templateId: string) => void;
+  onViewTemplate?: (templateId: string) => void;
   viewMode?: 'grid' | 'list';
 }
 
@@ -20,6 +21,7 @@ export const IQubeCard = ({
   onDelete,
   onAddToCart,
   onViewInstances,
+  onViewTemplate,
   viewMode = 'grid'
 }: IQubeCardProps) => {
   if (viewMode === 'list') {
@@ -31,6 +33,7 @@ export const IQubeCard = ({
         onDelete={onDelete}
         onAddToCart={onAddToCart}
         onViewInstances={onViewInstances}
+        onViewTemplate={onViewTemplate}
       />
     );
   }
@@ -43,6 +46,7 @@ export const IQubeCard = ({
       onDelete={onDelete}
       onAddToCart={onAddToCart}
       onViewInstances={onViewInstances}
+      onViewTemplate={onViewTemplate}
     />
   );
 };

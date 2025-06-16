@@ -6,9 +6,10 @@ import { IQube } from '@/types/iQube';
 interface IQubeInstanceBadgeProps {
   iQube: IQube;
   onViewInstances?: (templateId: string) => void;
+  onViewTemplate?: (templateId: string) => void;
 }
 
-export const IQubeInstanceBadge = ({ iQube, onViewInstances }: IQubeInstanceBadgeProps) => {
+export const IQubeInstanceBadge = ({ iQube, onViewInstances, onViewTemplate }: IQubeInstanceBadgeProps) => {
   if (iQube.iQubeInstanceType === 'instance') {
     // Show encryption status for instances
     return (
@@ -30,7 +31,15 @@ export const IQubeInstanceBadge = ({ iQube, onViewInstances }: IQubeInstanceBadg
     
     return (
       <div className="flex items-center gap-2">
-        <Badge variant="outline" className="text-xs">
+        <Badge 
+          variant="outline" 
+          className="text-xs cursor-pointer hover:bg-slate-100 transition-colors"
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log(`Clicking template badge for template ${iQube.id}`);
+            onViewTemplate?.(iQube.id);
+          }}
+        >
           Template
         </Badge>
         {instanceCount > 0 && (

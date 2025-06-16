@@ -216,6 +216,7 @@ export const Registry = () => {
                 onDelete={handleDelete}
                 onAddToCart={handleAddToCart}
                 onViewInstances={handleViewInstances}
+                onViewTemplate={handleViewTemplate}
               />
             </TooltipProvider>
           </div>
