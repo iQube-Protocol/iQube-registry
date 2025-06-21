@@ -43,6 +43,11 @@ export const Sidebar = () => {
               </span>
             </div>
           )}
+          {collapsed && (
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto">
+              <Box className="w-5 h-5 text-white" />
+            </div>
+          )}
           <Button
             variant="ghost"
             size="sm"
@@ -63,14 +68,15 @@ export const Sidebar = () => {
               key={item.name}
               to={item.href}
               className={cn(
-                "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors group",
+                "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors group",
+                collapsed ? "justify-center" : "space-x-3",
                 isActive 
                   ? "bg-blue-600 text-white" 
                   : "text-slate-300 hover:text-white hover:bg-slate-700"
               )}
             >
               <item.icon className={cn(
-                "w-5 h-5",
+                "w-5 h-5 flex-shrink-0",
                 isActive ? "text-white" : "text-slate-400 group-hover:text-white"
               )} />
               {!collapsed && <span>{item.name}</span>}
